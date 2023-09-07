@@ -1,0 +1,57 @@
+<div class="flex flex-col items-center justify-center h-screen space-y-4">
+  <div>
+    <h1><%= @challenge.title %></h1>
+    <p><%= @challenge.text %></p>
+  </div>
+
+  <form phx-submit="execute">
+    <textarea
+      name="query"
+      class="w-full max-w-lg p-4 text-xl border rounded shadow"
+      style="height: 200px;"
+    >
+    <%= @query %>
+  </textarea>
+
+    <button
+      type="submit"
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    >
+      Execute
+    </button>
+
+    <%= if @error do %>
+      <div class="alert alert-danger" role="alert">
+        <%= @error %>
+      </div>
+    <% else %>
+      <table class="table-auto">
+        <thead>
+          <tr>
+            <%= for col <- @columns do %>
+              <th><%= col %></th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <%= for row <- @result do %>
+            <tr>
+              <%= for value <- row do %>
+                <td><%= value %></td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </form>
+
+  <form phx-submit="guess">
+    <input type="text" name="guess" />
+    <button type="submit">Submit</button>
+  </form>
+
+  <div>
+    <p>Result: <%= @answer %></p>
+  </div>
+</div>
