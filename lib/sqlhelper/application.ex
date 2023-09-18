@@ -17,7 +17,8 @@ defmodule Sqlhelper.Application do
       # Start Finch
       {Finch, name: Sqlhelper.Finch},
       # Start the Endpoint (http/https)
-      SqlhelperWeb.Endpoint
+      SqlhelperWeb.Endpoint,
+      Sqlhelper.DataCheckServer
       # Start a worker by calling: Sqlhelper.Worker.start_link(arg)
       # {Sqlhelper.Worker, arg}
     ]
