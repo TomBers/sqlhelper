@@ -45,7 +45,11 @@
                 <td><%= value %></td>
               <% end %>
               <td>
-                <button phx-click="save_result" phx-value-row={filter_row_value(row)}>
+                <button
+                  phx-click="save_result"
+                  phx-value-row={format_query_result(row)}
+                  phx-value-col={@columns}
+                >
                   Save
                 </button>
               </td>

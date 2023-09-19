@@ -38,8 +38,9 @@ defmodule SqlhelperWeb.SqlLive do
     end
   end
 
-  def handle_event("save_result", %{"row" => row}, socket) do
+  def handle_event("save_result", %{"row" => row, "col" => col}, socket) do
     # Add the row to the saved results
+    IO.inspect(col, label: "col")
     saved_results = [row | socket.assigns.saved_results]
 
     {:noreply, assign(socket, saved_results: saved_results)}
@@ -50,19 +51,18 @@ defmodule SqlhelperWeb.SqlLive do
     {:noreply, assign(socket, answer: answer)}
   end
 
-  def filter_row_value(row) do
-    row
-    |> Enum.map(fn v ->
-      if is_boolean(v) do
-        map_bool_to_string(v)
-      else
-        v
+  def format_query_result(result) do
+    Enum.map(result, fn elem ->
+      case elem do
+        _ when is_boolean(elem) ->
+          if elem, do: "true", else: "false"
+
+        _ ->
+          if is_val_date_time?(elem), do: DateTime.to_string(elem), else: to_string(elem)
       end
     end)
-    |> Enum.filter(fn v -> is_integer(v) or is_bitstring(v) end)
-    |> IO.inspect()
   end
 
-  defp map_bool_to_string(true), do: "true"
-  defp map_bool_to_string(false), do: "false"
+  defp is_val_date_time?(%DateTime{}), do: true
+  defp is_val_date_time?(_), do: false
 end
