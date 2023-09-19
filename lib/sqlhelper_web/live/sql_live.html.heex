@@ -48,7 +48,7 @@
                 <button
                   phx-click="save_result"
                   phx-value-row={format_query_result(row)}
-                  phx-value-col={@columns}
+                  phx-value-col={format_columns(@columns)}
                 >
                   Save
                 </button>
@@ -70,8 +70,9 @@
   </div>
 
   <ul>
-    <%= for result <- @saved_results do %>
-      <li><%= IO.inspect(result) %></li>
+    <%= for {col, row} <- @saved_results do %>
+      <li><%= IO.inspect(col) %></li>
+      <li><%= IO.inspect(row) %></li>
     <% end %>
   </ul>
 </div>

@@ -1,6 +1,8 @@
 defmodule SqlhelperWeb.SqlLive do
   use Phoenix.LiveView
 
+  @joiner_char "__"
+
   def mount(%{"challenge_id" => id}, _session, socket) do
     q = ""
     challenge = Sqlhelper.Challenges.get_challenge!(id)
@@ -41,9 +43,17 @@ defmodule SqlhelperWeb.SqlLive do
   def handle_event("save_result", %{"row" => row, "col" => col}, socket) do
     # Add the row to the saved results
     IO.inspect(col, label: "col")
-    saved_results = [row | socket.assigns.saved_results]
+
+    # TODO - match the rows with the columns
+    res = {col, row}
+    saved_results = [res | socket.assigns.saved_results]
 
     {:noreply, assign(socket, saved_results: saved_results)}
+  end
+
+  def format_columns(cols) do
+    IO.inspect(cols, label: "cols")
+    Enum.join(cols, @joiner_char)
   end
 
   def handle_event("guess", %{"guess" => guess}, socket) do
@@ -61,6 +71,7 @@ defmodule SqlhelperWeb.SqlLive do
           if is_val_date_time?(elem), do: DateTime.to_string(elem), else: to_string(elem)
       end
     end)
+    |> Enum.join(@joiner_char)
   end
 
   defp is_val_date_time?(%DateTime{}), do: true
