@@ -1,10 +1,11 @@
 defmodule SqlhelperWeb.SqlLive do
   use Phoenix.LiveView
+  use SqlhelperWeb, :html
 
   @joiner_char "__"
 
   def mount(%{"challenge_id" => id}, _session, socket) do
-    q = ""
+    q = "select * from suspects join suspects_media on suspects.id = suspects_media.suspect_id"
     challenge = Sqlhelper.Challenges.get_challenge!(id)
 
     {:ok,
@@ -17,7 +18,8 @@ defmodule SqlhelperWeb.SqlLive do
        guess: "",
        answer: "",
        query_history: [],
-       saved_results: []
+       saved_results: [],
+       img_path: ~p"/images/doc.png"
      )}
   end
 
@@ -76,4 +78,8 @@ defmodule SqlhelperWeb.SqlLive do
 
   defp is_val_date_time?(%DateTime{}), do: true
   defp is_val_date_time?(_), do: false
+
+  def is_image(val) do
+    is_bitstring(val) && String.starts_with?(val, "/images/")
+  end
 end

@@ -6,6 +6,7 @@
       ) %>
     </h1>
     <p><%= @challenge.text %></p>
+    <img src={@img_path} />
   </div>
 
   <form phx-submit="execute">
@@ -42,7 +43,11 @@
           <%= for row <- @result do %>
             <tr>
               <%= for value <- row do %>
-                <td><%= value %></td>
+                <%= if is_image(value) do %>
+                  <td><img src={value} class="w-40 h-auto" /></td>
+                <% else %>
+                  <td><%= value %></td>
+                <% end %>
               <% end %>
               <td>
                 <button
