@@ -10,6 +10,7 @@ defmodule Sqlhelper.Tables.Suspects do
     field :ethnicity, :string
     field :notes, :string
     belongs_to :crime, Sqlhelper.Tables.Crimes
+    has_many :suspects_media, Sqlhelper.Tables.SuspectsMedia
 
     timestamps()
   end
