@@ -32,43 +32,49 @@ defmodule SqlhelperWeb.Table do
 
   def sql_table(assigns) do
     ~H"""
-    <table class="table-auto">
-      <thead>
-        <tr>
-          <%= for col <- @columns do %>
-            <th><%= col %></th>
-          <% end %>
-          <%= if @allow_save do %>
-            <th>Save</th>
-          <% end %>
-        </tr>
-      </thead>
-      <tbody>
-        <%= for row <- @rows do %>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
           <tr>
-            <%= for value <- row do %>
-              <%= if is_image(value) do %>
-                <td><img src={value} class="w-40 h-auto" /></td>
-              <% else %>
-                <td><%= value %></td>
-              <% end %>
+            <%= for col <- @columns do %>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <%= col %>
+              </th>
             <% end %>
             <%= if @allow_save do %>
-              <td>
-                <button
-                  phx-click="save_result"
-                  phx-value-row={format_query_result(row)}
-                  phx-value-col={format_columns(@columns)}
-                  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                >
-                  Save
-                </button>
-              </td>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Save
+              </th>
             <% end %>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <%= for row <- @rows do %>
+            <tr class="hover:bg-gray-100 odd:bg-white even:bg-gray-50">
+              <%= for value <- row do %>
+                <%= if is_image(value) do %>
+                  <td class="px-6 py-4 whitespace-nowrap"><img src={value} class="w-40 h-auto" /></td>
+                <% else %>
+                  <td class="px-6 py-4 whitespace-nowrap"><%= value %></td>
+                <% end %>
+              <% end %>
+              <%= if @allow_save do %>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <button
+                    phx-click="save_result"
+                    phx-value-row={format_query_result(row)}
+                    phx-value-col={format_columns(@columns)}
+                    class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  >
+                    Save
+                  </button>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
     """
   end
 end
