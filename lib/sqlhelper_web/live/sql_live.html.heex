@@ -37,7 +37,7 @@
 
   <%= if length(@saved_results) >= 1 do %>
     <%= for {col, row} <- @saved_results do %>
-      <.sql_table columns={split_res(col)} rows={[split_res(row)]} />
+      <.sql_table columns={split_res(col)} rows={[split_res(row)]} allow_delete={true} />
     <% end %>
   <% end %>
 </div>

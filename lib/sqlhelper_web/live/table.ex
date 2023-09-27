@@ -28,7 +28,10 @@ defmodule SqlhelperWeb.Table do
   defp is_val_date_time?(%DateTime{}), do: true
   defp is_val_date_time?(_), do: false
 
+  attr :columns, :list, default: []
+  attr :rows, :list, default: []
   attr :allow_save, :boolean, default: false
+  attr :allow_delete, :boolean, default: false
 
   def sql_table(assigns) do
     ~H"""
@@ -67,6 +70,18 @@ defmodule SqlhelperWeb.Table do
                     class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                   >
                     Save
+                  </button>
+                </td>
+              <% end %>
+              <%= if @allow_delete do %>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <button
+                    phx-click="delete_result"
+                    phx-value-row={format_query_result(row)}
+                    phx-value-col={format_columns(@columns)}
+                    class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                  >
+                    Delete
                   </button>
                 </td>
               <% end %>

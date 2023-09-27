@@ -54,6 +54,13 @@ defmodule SqlhelperWeb.SqlLive do
     {:noreply, assign(socket, saved_results: saved_results)}
   end
 
+  def handle_event("delete_result", %{"row" => row, "col" => col}, socket) do
+    {:noreply,
+     assign(socket,
+       saved_results: socket.assigns.saved_results |> Enum.filter(&(&1 != {col, row}))
+     )}
+  end
+
   defp split_res(res) do
     String.split(res, @joiner_char)
   end
