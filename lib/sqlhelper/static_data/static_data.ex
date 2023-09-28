@@ -5,6 +5,7 @@ defmodule Sqlhelper.StaticData do
   alias Sqlhelper.StaticData.Animals
   alias Sqlhelper.StaticData.Owners
   alias Sqlhelper.StaticData.Challenges
+  alias Sqlhelper.StaticData.Suspects
 
   def run do
     data_checks = Repo.all(DataCheck)
@@ -12,6 +13,8 @@ defmodule Sqlhelper.StaticData do
     insert_data("animals", data_checks, Animals.data(), &Animals.insert/1)
     insert_data("owners", data_checks, Owners.data(), &Owners.insert/1)
     insert_data("challenges", data_checks, Challenges.data(), &Challenges.insert/1)
+
+    insert_data("suspects", data_checks, Suspects.data(), &Suspects.insert/1)
   end
 
   defp insert_data(name, data_checks, static_data, insert_fn) do
