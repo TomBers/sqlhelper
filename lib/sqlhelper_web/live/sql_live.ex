@@ -3,11 +3,13 @@ defmodule SqlhelperWeb.SqlLive do
   use SqlhelperWeb, :html
 
   import SqlhelperWeb.Table
+  import SqlhelperWeb.TaskList
 
   @joiner_char "__"
 
   def mount(%{"challenge_id" => id}, _session, socket) do
     q = "select * from suspects join suspects_media on suspects.id = suspects_media.suspect_id"
+    # TODO - get the challenge and tasks from the database
     challenge = Sqlhelper.Challenges.get_challenge!(id)
 
     {:ok,
