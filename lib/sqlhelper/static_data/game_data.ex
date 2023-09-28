@@ -1,6 +1,6 @@
 defmodule Sqlhelper.GameData do
   alias Sqlhelper.Repo
-  alias Sqlhelper.Tables.{Crimes, Suspects, Witnesses, Statements, Evidence}
+  alias Sqlhelper.Tables.{Crimes, Suspects, SuspectsMedia, Witnesses, Statements, Evidence}
 
   def generate_data do
     # Generate data for Crimes
@@ -52,6 +52,33 @@ defmodule Sqlhelper.GameData do
       notes: "Notes 1",
       crime_id: 1
     }
+    |> Repo.insert!()
+  end
+
+  def gen_suspect(crime_id) do
+    generate_suspect(
+      crime_id,
+      "/images/person.jpg",
+      %{
+        name: Enum.random(["Suspect 1", "Suspect 2", "Suspect 3"]),
+        dob: Enum.random([~D[2000-01-01]]),
+        height: Enum.random(["Short", "Tall", "Medium"]),
+        build: Enum.random(["Strong", "Weak", "Medium"]),
+        hair_colour: Enum.random(["Black", "Red", "Blonde"]),
+        ethnicity: "Ethnicity 1",
+        notes: "Notes 1"
+      }
+    )
+  end
+
+  defp generate_suspect(crime_id, img_path, attrs) do
+    suspect =
+      %Suspects{}
+      |> Suspects.changeset(Map.put(attrs, :crime_id, crime_id))
+      |> Repo.insert!()
+
+    %SuspectsMedia{}
+    |> SuspectsMedia.changeset(%{image_path: img_path, suspect_id: suspect.id})
     |> Repo.insert!()
   end
 end
