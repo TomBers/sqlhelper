@@ -6,7 +6,7 @@
       ) %>
     </h1>
     <p><%= @challenge.text %></p>
-    <img src={@img_path} />
+    <.task_list tasks={@challenge.tasks} />
   </div>
 
   <form phx-submit="execute">
@@ -24,60 +24,21 @@
     >
       Execute
     </button>
+  </form>
 
-    <%= if @error do %>
-      <div class="alert alert-danger" role="alert">
-        <%= @error %>
-      </div>
-    <% else %>
-      <table class="table-auto">
-        <thead>
-          <tr>
-            <%= for col <- @columns do %>
-              <th><%= col %></th>
-            <% end %>
-            <th>Save</th>
-          </tr>
-        </thead>
-        <tbody>
-          <%= for row <- @result do %>
-            <tr>
-              <%= for value <- row do %>
-                <%= if is_image(value) do %>
-                  <td><img src={value} class="w-40 h-auto" /></td>
-                <% else %>
-                  <td><%= value %></td>
-                <% end %>
-              <% end %>
-              <td>
-                <button
-                  phx-click="save_result"
-                  phx-value-row={format_query_result(row)}
-                  phx-value-col={format_columns(@columns)}
-                >
-                  Save
-                </button>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+  <%= if @error do %>
+    <div class="alert alert-danger" role="alert">
+      <%= @error %>
+    </div>
+  <% else %>
+    <%= if length(@columns) > 1 do %>
+      <.sql_table columns={@columns} rows={@result} allow_save={true} />
     <% end %>
-  </form>
+  <% end %>
 
-  <form phx-submit="guess">
-    <input type="text" name="guess" />
-    <button type="submit">Submit</button>
-  </form>
-
-  <div>
-    <p>Result: <%= @answer %></p>
-  </div>
-
-  <ul>
+  <%= if length(@saved_results) >= 1 do %>
     <%= for {col, row} <- @saved_results do %>
-      <li><%= IO.inspect(col) %></li>
-      <li><%= IO.inspect(row) %></li>
+      <.sql_table columns={split_res(col)} rows={[split_res(row)]} allow_delete={true} />
     <% end %>
-  </ul>
+  <% end %>
 </div>

@@ -35,7 +35,7 @@ defmodule Sqlhelper.Challenges do
       ** (Ecto.NoResultsError)
 
   """
-  def get_challenge!(id), do: Repo.get!(Challenge, id)
+  def get_challenge!(id), do: Repo.get!(Challenge, id) |> Repo.preload(:tasks)
 
   @doc """
   Creates a challenge.
