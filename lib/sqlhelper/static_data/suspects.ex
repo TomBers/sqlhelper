@@ -2,19 +2,29 @@ defmodule Sqlhelper.StaticData.Suspects do
   alias Sqlhelper.Tables.{Suspects, SuspectsMedia}
   alias Sqlhelper.Repo
 
+  @test_crime 1
   def data do
-    [
-      %{
-        name: Enum.random(["Suspect 1", "Suspect 2", "Suspect 3"]),
-        dob: Enum.random([~D[2000-01-01]]),
-        height: Enum.random(["Short", "Tall", "Medium"]),
-        build: Enum.random(["Strong", "Weak", "Medium"]),
-        hair_colour: Enum.random(["Black", "Red", "Blonde"]),
-        ethnicity: "2",
-        notes: "Notes 2",
-        crime_id: 2
-      }
-    ]
+    1..5 |> Enum.map(fn _ -> suspect_map(@test_crime) end)
+  end
+
+  defp suspect_map(crime_id) do
+    %{
+      name: Faker.Person.name(),
+      dob: Faker.Date.between(~D[1971-01-01], ~D[2008-01-01]),
+      height: Enum.random(["Short", "Tall", "Average"]),
+      build: Enum.random(["Strong", "Weak", "Medium", "Massive", "Unusual", "Meager"]),
+      hair_colour: Enum.random(["Black", "Red", "Blonde", "Brown", "Grey", "White", "Bald"]),
+      ethnicity:
+        Enum.random([
+          "Asian, Asian British, Asian Welsh",
+          "Black, Black British, Black Welsh, Caribbean or African",
+          "Mixed or Multiple",
+          "White",
+          "Other ethnic group"
+        ]),
+      notes: Faker.Superhero.power(),
+      crime_id: crime_id
+    }
   end
 
   def insert(suspect_data) do
@@ -28,12 +38,11 @@ defmodule Sqlhelper.StaticData.Suspects do
   end
 
   def insert_media(media_data) do
-    IO.inspect(media_data, label: "media_data")
+    # IO.inspect(media_data, label: "media_data")
     img_path = "/images/person.jpg"
 
     %SuspectsMedia{}
     |> SuspectsMedia.changeset(%{image_path: img_path, suspect_id: media_data.id})
-    |> IO.inspect(label: "SuspectsMedia.changeset")
     |> Repo.insert!()
   end
 end

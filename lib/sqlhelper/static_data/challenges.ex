@@ -1,31 +1,15 @@
 defmodule Sqlhelper.StaticData.Challenges do
-  alias Sqlhelper.Challenges.Challenge
+  alias Sqlhelper.Challenges.{Challenge, Tasks}
   alias Sqlhelper.Repo
 
   def data do
     [
       %{
-        title: "Challenge1",
-        text: "Learn how to write basic SQL queries.",
+        title: "Challenge 1",
+        text: "Discover the mostly likely suspect from the evidence provided.",
         answer: "Answer1",
         difficulty: "Easy",
-        hints: "SELECT * FROM table_name;",
-        author_id: 1
-      },
-      %{
-        title: "Challenge2",
-        text: "Learn how to join tables in SQL.",
-        answer: "Answer2",
-        difficulty: "Medium",
-        hints: "SELECT * FROM table1 JOIN table2 ON table1.id = table2.table1_id;",
-        author_id: 1
-      },
-      %{
-        title: "Challenge3",
-        text: "Learn how to use aggregate functions in SQL.",
-        answer: "Answer3",
-        difficulty: "Hard",
-        hints: "SELECT COUNT(*) FROM table_name;",
+        hints: "",
         author_id: 1
       }
     ]
@@ -34,9 +18,38 @@ defmodule Sqlhelper.StaticData.Challenges do
   def insert(challenges_data) do
     challenges_data
     |> Enum.map(
+      &(Repo.insert!(
+          %Challenge{}
+          |> Ecto.Changeset.cast(&1, [:title, :text, :answer, :difficulty, :hints, :author_id])
+        )
+        |> insert_tasks())
+    )
+  end
+
+  def insert_tasks(challenge) do
+    data = [
+      %{
+        instruction: "#{challenge.id} Instruction 1",
+        hint: "#{challenge.id} Hint 1",
+        challenge_id: challenge.id
+      },
+      %{
+        instruction: "#{challenge.id} Instruction 2",
+        hint: "#{challenge.id} Hint 2",
+        challenge_id: challenge.id
+      },
+      %{
+        instruction: "#{challenge.id} Instruction 3",
+        hint: "#{challenge.id} Hint 3",
+        challenge_id: challenge.id
+      }
+    ]
+
+    data
+    |> Enum.map(
       &Repo.insert!(
-        %Challenge{}
-        |> Ecto.Changeset.cast(&1, [:title, :text, :answer, :difficulty, :hints, :author_id])
+        %Tasks{}
+        |> Ecto.Changeset.cast(&1, [:instruction, :hint, :challenge_id])
       )
     )
   end
