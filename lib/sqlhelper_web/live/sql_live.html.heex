@@ -1,30 +1,56 @@
-<div class="flex flex-col items-center justify-center h-screen space-y-4">
-  <div>
-    <h1>
-      <%= @challenge.title %> Saved items: <%= length(@saved_results) %> Previous queries <%= length(
-        @query_history
-      ) %>
-    </h1>
-    <p><%= @challenge.text %></p>
-    <.task_list tasks={@challenge.tasks} />
+<div class="flex flex-col items-center justify-center">
+  <div class="hero bg-base-200">
+    <div class="hero-content flex-col lg:flex-row-reverse">
+      <img src="/images/house.png" class="max-w-xs rounded-lg shadow-2xl" />
+      <div>
+        <h1 class="text-5xl font-bold"><%= @challenge.title %></h1>
+        <p class="py-6">
+          <%= @challenge.text %>
+        </p>
+        <.task_list tasks={@challenge.tasks} />
+      </div>
+    </div>
   </div>
 
   <form phx-submit="execute">
     <textarea
       name="query"
-      class="w-full max-w-lg p-4 text-xl border rounded shadow"
+      class="textarea textarea-primary textarea-lg w-full max-w-4xl"
       style="height: 200px;"
     >
     <%= @query %>
   </textarea>
 
-    <button
-      type="submit"
-      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-    >
+    <button type="submit" class="btn btn-wide">
       Execute
     </button>
+    (Queries <%= length(@query_history) %>)
   </form>
+
+  <div class="drawer">
+    <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+    <div class="drawer-content">
+      <!-- Page content here -->
+      <label for="my-drawer" class="btn btn-primary drawer-button">
+        Open Evidence (<%= length(@saved_results) %>)
+      </label>
+    </div>
+    <div class="drawer-side">
+      <label for="my-drawer" class="drawer-overlay"></label>
+      <%= if length(@saved_results) >= 1 do %>
+        <div class="menu p-4 min-h-full bg-base-200 text-base-content">
+          <%= for {col, row} <- @saved_results do %>
+            <.sql_table
+              columns={split_res(col)}
+              rows={[split_res(row)]}
+              allow_delete={true}
+              title="Saved Result"
+            />
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 
   <%= if @error do %>
     <div class="alert alert-danger" role="alert">
@@ -32,13 +58,7 @@
     </div>
   <% else %>
     <%= if length(@columns) > 1 do %>
-      <.sql_table columns={@columns} rows={@result} allow_save={true} />
-    <% end %>
-  <% end %>
-
-  <%= if length(@saved_results) >= 1 do %>
-    <%= for {col, row} <- @saved_results do %>
-      <.sql_table columns={split_res(col)} rows={[split_res(row)]} allow_delete={true} />
+      <.sql_table columns={@columns} rows={@result} allow_save={true} title="Results table" />
     <% end %>
   <% end %>
 </div>
