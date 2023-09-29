@@ -1,5 +1,6 @@
 defmodule Sqlhelper.Tables.Crimes do
   use Ecto.Schema
+  import Ecto.Changeset
 
   alias Sqlhelper.Tables.CrimesMedia
 
@@ -12,16 +13,10 @@ defmodule Sqlhelper.Tables.Crimes do
 
     timestamps()
   end
-end
 
-defmodule Sqlhelper.Tables.CrimesMedia do
-  use Ecto.Schema
-
-  schema "crimes_media" do
-    field :image_path, :string
-
-    belongs_to :crime, Sqlhelper.Tables.Crimes
-
-    timestamps()
+  def changeset(crime, attrs) do
+    crime
+    |> cast(attrs, [:title, :summary, :description])
+    |> validate_required([:title, :summary, :description])
   end
 end

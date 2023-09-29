@@ -1,5 +1,6 @@
 defmodule Sqlhelper.Tables.Evidence do
   use Ecto.Schema
+  import Ecto.Changeset
 
   schema "evidence" do
     field :type, :string
@@ -11,15 +12,10 @@ defmodule Sqlhelper.Tables.Evidence do
 
     timestamps()
   end
-end
 
-defmodule Sqlhelper.Tables.EvidenceMedia do
-  use Ecto.Schema
-
-  schema "evidence_media" do
-    field :image_path, :string
-    belongs_to :evidence, Sqlhelper.Tables.Evidence
-
-    timestamps()
+  def changeset(evidence, attrs) do
+    evidence
+    |> cast(attrs, [:type, :timestamp, :location_lat, :location_long, :notes, :crime_id])
+    |> validate_required([:type, :timestamp, :location_lat, :location_long, :notes, :crime_id])
   end
 end

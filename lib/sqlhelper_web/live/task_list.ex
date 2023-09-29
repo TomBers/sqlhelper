@@ -5,7 +5,7 @@ defmodule SqlhelperWeb.TaskList do
     ~H"""
     <ol class="list-decimal">
       <%= for task <- @tasks do %>
-        <li><%= task.instruction %></li>
+        <li onclick="window.taskListToggle(this)" class="task-list-task"><%= task.instruction %></li>
       <% end %>
     </ol>
     """

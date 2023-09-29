@@ -9,7 +9,7 @@ defmodule Sqlhelper.Challenges.Challenge do
     field :text, :string
     field :title, :string
     field :author_id, :id
-    has_many :tasks, Sqlhelper.Tables.Tasks
+    has_many :tasks, Sqlhelper.Challenges.Tasks
 
     timestamps()
   end
@@ -19,17 +19,5 @@ defmodule Sqlhelper.Challenges.Challenge do
     challenge
     |> cast(attrs, [:title, :text, :answer, :difficulty, :hints])
     |> validate_required([:title, :text, :answer, :difficulty, :hints])
-  end
-end
-
-defmodule Sqlhelper.Tables.Tasks do
-  use Ecto.Schema
-
-  schema "tasks" do
-    field :instruction, :string
-    field :hint, :string
-    belongs_to :challenge, Sqlhelper.Tables.Challenges
-
-    timestamps()
   end
 end

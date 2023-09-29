@@ -1,5 +1,6 @@
 defmodule Sqlhelper.Tables.Suspects do
   use Ecto.Schema
+  import Ecto.Changeset
 
   schema "suspects" do
     field :name, :string
@@ -14,15 +15,19 @@ defmodule Sqlhelper.Tables.Suspects do
 
     timestamps()
   end
-end
 
-defmodule Sqlhelper.Tables.SuspectsMedia do
-  use Ecto.Schema
-
-  schema "suspects_media" do
-    field :image_path, :string
-    belongs_to :suspect, Sqlhelper.Tables.Suspects
-
-    timestamps()
+  def changeset(suspect, attrs) do
+    suspect
+    |> cast(attrs, [:name, :dob, :height, :build, :hair_colour, :ethnicity, :notes, :crime_id])
+    |> validate_required([
+      :name,
+      :dob,
+      :height,
+      :build,
+      :hair_colour,
+      :ethnicity,
+      :notes,
+      :crime_id
+    ])
   end
 end

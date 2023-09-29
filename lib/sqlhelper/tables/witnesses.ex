@@ -1,5 +1,6 @@
 defmodule Sqlhelper.Tables.Witnesses do
   use Ecto.Schema
+  import Ecto.Changeset
 
   schema "witnesses" do
     field :name, :string
@@ -9,31 +10,10 @@ defmodule Sqlhelper.Tables.Witnesses do
 
     timestamps()
   end
-end
 
-defmodule Sqlhelper.Tables.WitnessesMedia do
-  use Ecto.Schema
-
-  schema "witnesses_media" do
-    field :image_path, :string
-    belongs_to :witness, Sqlhelper.Tables.Witnesses
-
-    timestamps()
-  end
-end
-
-defmodule Sqlhelper.Tables.Statements do
-  use Ecto.Schema
-
-  schema "statements" do
-    field :timestamp, :naive_datetime
-    field :location_lat, :float
-    field :location_long, :float
-    field :statement_text, :string
-    belongs_to :suspect, Sqlhelper.Tables.Suspects
-    belongs_to :witness, Sqlhelper.Tables.Witnesses
-    belongs_to :crime, Sqlhelper.Tables.Crimes
-
-    timestamps()
+  def changeset(witness, attrs) do
+    witness
+    |> cast(attrs, [:name, :dob, :relation_to_suspect, :suspect_id])
+    |> validate_required([:name, :dob, :relation_to_suspect, :suspect_id])
   end
 end
