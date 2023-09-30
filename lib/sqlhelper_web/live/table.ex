@@ -41,14 +41,19 @@ defmodule SqlhelperWeb.Table do
       <table class="min-w-full divide-y divide-gray-200 border-solid">
         <thead class="bg-gray-50">
           <tr>
-            <%= for col <- @columns do %>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                <%= col %>
-              </th>
-            <% end %>
             <%= if @allow_save do %>
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Save
+              </th>
+            <% end %>
+            <%= if @allow_delete do %>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Delete
+              </th>
+            <% end %>
+            <%= for col <- @columns do %>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <%= col %>
               </th>
             <% end %>
           </tr>
@@ -56,13 +61,6 @@ defmodule SqlhelperWeb.Table do
         <tbody class="bg-white divide-y divide-gray-200">
           <%= for row <- @rows do %>
             <tr class="hover:bg-gray-100 odd:bg-white even:bg-gray-50">
-              <%= for value <- row do %>
-                <%= if is_image(value) do %>
-                  <td class="px-6 py-4 whitespace-nowrap"><img src={value} class="w-40 h-auto" /></td>
-                <% else %>
-                  <td class="px-6 py-4 whitespace-nowrap"><%= value %></td>
-                <% end %>
-              <% end %>
               <%= if @allow_save do %>
                 <td class="px-6 py-4 whitespace-nowrap">
                   <button
@@ -86,6 +84,13 @@ defmodule SqlhelperWeb.Table do
                     Delete
                   </button>
                 </td>
+              <% end %>
+              <%= for value <- row do %>
+                <%= if is_image(value) do %>
+                  <td class="px-6 py-4 whitespace-nowrap"><img src={value} class="w-40 h-auto" /></td>
+                <% else %>
+                  <td class="px-6 py-4 whitespace-nowrap"><%= value %></td>
+                <% end %>
               <% end %>
             </tr>
           <% end %>
