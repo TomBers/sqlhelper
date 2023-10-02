@@ -7,9 +7,9 @@ defmodule Sqlhelper.Tables.Statements do
     field :location_lat, :float
     field :location_long, :float
     field :statement_text, :string
-    belongs_to :suspect, Sqlhelper.Tables.Suspects
-    belongs_to :witness, Sqlhelper.Tables.Witnesses
-    belongs_to :crime, Sqlhelper.Tables.Crimes
+    belongs_to :suspect, Sqlhelper.Tables.Suspects, foreign_key: :suspect_id
+    belongs_to :witness, Sqlhelper.Tables.Witnesses, foreign_key: :witness_id
+    belongs_to :crime, Sqlhelper.Tables.Crimes, foreign_key: :crime_id
 
     timestamps()
   end
