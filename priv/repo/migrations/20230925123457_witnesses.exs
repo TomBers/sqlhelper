@@ -25,7 +25,15 @@ defmodule Sqlhelper.Repo.Migrations.Witnesses do
       add :location_long, :float
       add :statement_text, :text
 
+      add :suspect_id, references(:suspects, on_delete: :nothing)
+      add :witness_id, references(:witnesses, on_delete: :nothing)
+      add :crime_id, references(:crimes, on_delete: :nothing)
+
       timestamps()
     end
+
+    create index(:statements, [:witness_id])
+    create index(:statements, [:crime_id])
+    create index(:statements, [:suspect_id])
   end
 end
