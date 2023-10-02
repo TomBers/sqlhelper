@@ -7,7 +7,7 @@ defmodule Sqlhelper.Repo.Migrations.Evidence do
       add :timestamp, :naive_datetime
       add :location_lat, :float
       add :location_long, :float
-      add :notes, :string
+      add :notes, :text
       add :crime_id, references(:crimes, on_delete: :nothing)
 
       timestamps()

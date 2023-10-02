@@ -26,7 +26,7 @@ defmodule Sqlhelper.Repo.Migrations.Witnesses do
       add :timestamp, :naive_datetime
       add :location_lat, :float
       add :location_long, :float
-      add :statement_text, :string
+      add :statement_text, :text
       add :suspect_id, references(:suspects, on_delete: :nothing)
 
       timestamps()
