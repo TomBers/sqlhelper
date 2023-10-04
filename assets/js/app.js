@@ -37,6 +37,16 @@ Hooks.CtrlEnterSubmit = {
     }
 }
 
+Hooks.TaskListToggle = {
+    mounted() {
+        this.el.addEventListener("click", (e) => {
+            setTimeout(() => document.getElementById("drawToggleBtn").click(), 50);
+            ;
+
+        })
+    }
+}
+
 let liveSocket = new LiveSocket("/live", Socket, { hooks: Hooks, params: { _csrf_token: csrfToken } })
 
 // Show progress bar on live navigation and form submits

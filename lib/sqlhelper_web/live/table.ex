@@ -79,7 +79,9 @@ defmodule SqlhelperWeb.Table do
                     phx-click="delete_result"
                     phx-value-row={format_query_result(row)}
                     phx-value-col={format_columns(@columns)}
+                    phx-hook="TaskListToggle"
                     class="btn"
+                    id={format_query_result(row)}
                   >
                     Delete
                   </button>

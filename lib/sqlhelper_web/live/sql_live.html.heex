@@ -55,11 +55,11 @@
     (Queries <%= length(@query_history) %>)
   </form>
 
-  <div class="drawer">
-    <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+  <div class="drawer drawer-end">
+    <input id="my-drawer" type="checkbox" class="drawer-toggle" id="drawToggle" />
     <div class="drawer-content">
       <!-- Page content here -->
-      <label for="my-drawer" class="btn btn-primary drawer-button">
+      <label for="my-drawer" class="drawer-button btn btn-primary" id="drawToggleBtn">
         Evidence (<%= length(@saved_results) %>)
       </label>
     </div>

@@ -22,7 +22,8 @@ defmodule SqlhelperWeb.SqlLive do
        guess: "",
        answer: "",
        query_history: [],
-       saved_results: []
+       saved_results: [],
+       draw_open: true
      )}
   end
 
