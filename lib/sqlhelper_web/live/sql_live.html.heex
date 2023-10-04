@@ -40,13 +40,14 @@
   </div>
 
   <form phx-submit="execute">
-    <textarea
+    <.input
+      type="textarea"
       name="query"
-      class="textarea textarea-primary textarea-lg w-full max-w-4xl"
+      value={@query}
       style="height: 200px;"
-    >
-    <%= @query %>
-  </textarea>
+      phx-hook="CtrlEnterSubmit"
+      id="queryTextArea"
+    />
 
     <button type="submit" class="btn btn-wide">
       Execute
