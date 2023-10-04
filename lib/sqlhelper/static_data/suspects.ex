@@ -155,7 +155,8 @@ defmodule Sqlhelper.StaticData.Suspects do
 
   def insert_media(media_data) do
     # IO.inspect(media_data, label: "media_data")
-    img_path = "/images/person.jpg"
+    name = String.split(media_data.name, " ") |> List.first()
+    img_path = "/images/suspects/#{name}_1.jpeg"
 
     %SuspectsMedia{}
     |> SuspectsMedia.changeset(%{image_path: img_path, suspect_id: media_data.id})

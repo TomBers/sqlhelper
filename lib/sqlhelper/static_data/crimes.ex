@@ -4,14 +4,15 @@ defmodule Sqlhelper.StaticData.Crimes do
 
   @test_crime 1
   def data do
-    1..5 |> Enum.map(fn _ -> crime_map(@test_crime) end)
+    [crime_map(@test_crime)]
   end
 
   defp crime_map(crime_id) do
     %{
-      title: Faker.Lorem.sentence(),
-      summary: Faker.Lorem.sentence(),
-      description: Faker.Lorem.sentence(),
+      title: "[Murder case]",
+      summary: "Last thursday, #{Faker.Person.name()} was found dead in their home.",
+      description:
+        "The crime was dressed up to look like a bugulary, however witness statements and evidence point to something more ",
       crime_id: crime_id
     }
   end

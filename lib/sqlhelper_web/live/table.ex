@@ -87,7 +87,9 @@ defmodule SqlhelperWeb.Table do
               <% end %>
               <%= for value <- row do %>
                 <%= if is_image(value) do %>
-                  <td class="px-6 py-4 whitespace-nowrap"><img src={value} class="w-40 h-auto" /></td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <img src={value} class="w-40 h-auto hover:scale-150" />
+                  </td>
                 <% else %>
                   <td class="px-6 py-4 whitespace-nowrap"><%= value %></td>
                 <% end %>

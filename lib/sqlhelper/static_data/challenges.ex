@@ -29,18 +29,18 @@ defmodule Sqlhelper.StaticData.Challenges do
   def insert_tasks(challenge) do
     data = [
       %{
-        instruction: "#{challenge.id} Instruction 1",
-        hint: "#{challenge.id} Hint 1",
+        instruction: "Find the details of the case",
+        hint: "Hint 1, Look at the crimes table to find a open cases",
         challenge_id: challenge.id
       },
       %{
-        instruction: "#{challenge.id} Instruction 2",
-        hint: "#{challenge.id} Hint 2",
+        instruction: "Look at the evidence of the case",
+        hint: "Look at the evidence table (join on the evidence media table to see the evidence)",
         challenge_id: challenge.id
       },
       %{
-        instruction: "#{challenge.id} Instruction 3",
-        hint: "#{challenge.id} Hint 3",
+        instruction: "See the current suspects",
+        hint: "Join on the suspects table with suspects media to see the suspects",
         challenge_id: challenge.id
       }
     ]
