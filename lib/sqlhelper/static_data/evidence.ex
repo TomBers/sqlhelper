@@ -4,7 +4,7 @@ defmodule Sqlhelper.StaticData.Evidence do
 
   @test_crime 1
   def data do
-    1..5 |> Enum.map(fn _ -> evidence_map(@test_crime) end)
+    1..30 |> Enum.map(fn _ -> evidence_map(@test_crime) end)
   end
 
   defp evidence_map(crime_id) do
@@ -40,7 +40,8 @@ defmodule Sqlhelper.StaticData.Evidence do
 
   def insert_media(media_data) do
     # IO.inspect(media_data, label: "media_data")
-    img_path = "/images/doc.png"
+    name = String.downcase(media_data.type)
+    img_path = "/images/evidence/#{name}.jpeg"
 
     %EvidenceMedia{}
     |> EvidenceMedia.changeset(%{image_path: img_path, evidence_id: media_data.id})
