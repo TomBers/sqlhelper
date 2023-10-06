@@ -4,30 +4,74 @@ defmodule Sqlhelper.StaticData.Evidence do
 
   @test_crime 1
   def data do
-    1..30 |> Enum.map(fn _ -> evidence_map(@test_crime) end)
+    suspects = Repo.all(Sqlhelper.Tables.Suspects)
+
+    suspects |> Enum.flat_map(fn suspect -> gen_evidence(suspect) end)
   end
 
-  defp evidence_map(crime_id) do
+  defp gen_evidence(suspect) do
+    1..Enum.random([1, 2, 3, 4, 5])
+    |> Enum.map(fn _ -> evidence_map(@test_crime, suspect.id) end)
+  end
+
+  defp evidence_map(crime_id, suspect_id) do
+    type = get_evidence_type()
+    notes = get_evidence_notes(type)
+
     %{
-      type:
-        Enum.random([
-          "DNA",
-          "Fingerprints",
-          "Footprints",
-          "Hair",
-          "Fibres",
-          "Blood",
-          "Weapon",
-          "Clothing",
-          "Vehicle",
-          "Other"
-        ]),
+      type: type,
       timestamp: Faker.DateTime.backward(360),
       location_lat: Faker.Address.latitude(),
       location_long: Faker.Address.longitude(),
-      notes: Faker.Lorem.sentence(),
-      crime_id: crime_id
+      notes: notes,
+      crime_id: crime_id,
+      suspect_id: suspect_id
     }
+  end
+
+  defp get_evidence_type do
+    Enum.random([
+      "DNA",
+      "Fingerprints",
+      "Footprints",
+      "Hair",
+      "Fibres",
+      "Blood",
+      "Weapon",
+      "Clothing",
+      "Vehicle",
+      "CCTV footage",
+      "Mobile phone picture"
+    ])
+  end
+
+  def get_evidence_notes(type) do
+    case type do
+      "Weapon" ->
+        Enum.random(["Found at the scene", "Found at the suspect's home"])
+
+      "Vehicle" ->
+        Enum.random(["Found at the scene", "Parked near the scene"])
+
+      "CCTV footage" ->
+        Enum.random([
+          "Footage suggests the suspect was at the scene",
+          "Footage suggests the suspect was near the scene"
+        ])
+
+      "Mobile phone picture" ->
+        Enum.random([
+          "Picture suggests the suspect was at the scene",
+          "Picture suggests the suspect was near the scene"
+        ])
+
+      _ ->
+        Enum.random([
+          "Found at the scene",
+          "Found in the proximity of the scene",
+          "Is compromised, but found at the scene"
+        ])
+    end
   end
 
   def insert(evidence_data) do

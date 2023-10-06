@@ -4,7 +4,7 @@ defmodule Sqlhelper.StaticData.Witnesses do
 
   @test_crime 1
   def data do
-    1..20 |> Enum.map(fn num -> witness_map(@test_crime) end)
+    1..20 |> Enum.map(fn _ -> witness_map(@test_crime) end)
   end
 
   defp witness_map(crime_id) do

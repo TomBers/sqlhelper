@@ -3,7 +3,6 @@ defmodule Sqlhelper.StaticData.Statements do
   alias Sqlhelper.Repo
 
   @crime_id 1
-  @suspect_id 1
 
   def data do
     game_data()

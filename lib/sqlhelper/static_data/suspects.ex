@@ -123,25 +123,25 @@ defmodule Sqlhelper.StaticData.Suspects do
     ]
   end
 
-  defp suspect_map(crime_id) do
-    %{
-      name: Faker.Person.name(),
-      dob: Faker.Date.between(~D[1971-01-01], ~D[2008-01-01]),
-      height: Enum.random(["Short", "Tall", "Average"]),
-      build: Enum.random(["Strong", "Weak", "Medium", "Massive", "Unusual", "Meager"]),
-      hair_colour: Enum.random(["Black", "Red", "Blonde", "Brown", "Grey", "White", "Bald"]),
-      ethnicity:
-        Enum.random([
-          "Asian, Asian British, Asian Welsh",
-          "Black, Black British, Black Welsh, Caribbean or African",
-          "Mixed or Multiple",
-          "White",
-          "Other ethnic group"
-        ]),
-      notes: Faker.Superhero.power(),
-      crime_id: crime_id
-    }
-  end
+  # defp suspect_map(crime_id) do
+  #   %{
+  #     name: Faker.Person.name(),
+  #     dob: Faker.Date.between(~D[1971-01-01], ~D[2008-01-01]),
+  #     height: Enum.random(["Short", "Tall", "Average"]),
+  #     build: Enum.random(["Strong", "Weak", "Medium", "Massive", "Unusual", "Meager"]),
+  #     hair_colour: Enum.random(["Black", "Red", "Blonde", "Brown", "Grey", "White", "Bald"]),
+  #     ethnicity:
+  #       Enum.random([
+  #         "Asian, Asian British, Asian Welsh",
+  #         "Black, Black British, Black Welsh, Caribbean or African",
+  #         "Mixed or Multiple",
+  #         "White",
+  #         "Other ethnic group"
+  #       ]),
+  #     notes: Faker.Superhero.power(),
+  #     crime_id: crime_id
+  #   }
+  # end
 
   def insert(suspect_data) do
     IO.inspect(suspect_data, label: "suspect_data")
