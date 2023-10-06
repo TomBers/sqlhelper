@@ -1,11 +1,16 @@
 defmodule Sqlhelper.StaticData.Suspects do
-  alias Sqlhelper.Tables.{Suspects, SuspectsMedia}
+  alias Sqlhelper.Tables.Suspects
   alias Sqlhelper.Repo
 
   @test_crime 1
   def data do
     # 1..5 |> Enum.map(fn _ -> suspect_map(@test_crime) end)
     game_data(@test_crime)
+    |> Enum.map(fn suspect ->
+      name = String.split(suspect.name, " ") |> List.first()
+      img_path = "/images/suspects/#{name}_1.jpeg"
+      Map.put(suspect, :image_path, img_path)
+    end)
   end
 
   defp game_data(crime_id) do
@@ -13,7 +18,7 @@ defmodule Sqlhelper.StaticData.Suspects do
       %{
         name: "Aiden Mercer",
         dob: ~D[1990-12-12],
-        height: "6 feet 2 inches",
+        height: 188,
         build: "lean yet muscular build",
         hair_colour: "silvery",
         ethnicity: "Mixed Asian and Caucasian heritage",
@@ -24,7 +29,7 @@ defmodule Sqlhelper.StaticData.Suspects do
       %{
         name: "Liliana Sterling",
         dob: ~D[1985-03-08],
-        height: "5 feet 4 inches",
+        height: 162,
         build: "Slender, elegant build",
         hair_colour: "Raven-black",
         ethnicity: "European",
@@ -35,7 +40,7 @@ defmodule Sqlhelper.StaticData.Suspects do
       %{
         name: "Sebastian Blackwood",
         dob: ~D[1988-06-21],
-        height: "6 feet 5 inches",
+        height: 196,
         build: "Solid",
         hair_colour: "Jet black",
         ethnicity: "English",
@@ -46,7 +51,7 @@ defmodule Sqlhelper.StaticData.Suspects do
       %{
         name: "Valeria Thorn",
         dob: ~D[1991-10-15],
-        height: "5 feet 7 inches",
+        height: 170,
         build: "Athletic",
         hair_colour: "Fiery red",
         ethnicity: "Celtic",
@@ -57,7 +62,7 @@ defmodule Sqlhelper.StaticData.Suspects do
       %{
         name: "Dmitri Ivanov",
         dob: ~D[1986-02-02],
-        height: "6 feet",
+        height: 182,
         build: "Muscular",
         hair_colour: "Blonde",
         ethnicity: "Slavic",
@@ -68,7 +73,7 @@ defmodule Sqlhelper.StaticData.Suspects do
       %{
         name: "Amara Bellamy",
         dob: ~D[1989-07-07],
-        height: "5 feet 5 inches",
+        height: 165,
         build: "Petite yet strong",
         hair_colour: "Chestnut",
         ethnicity: "African-American",
@@ -79,7 +84,7 @@ defmodule Sqlhelper.StaticData.Suspects do
       %{
         name: "Raphael De Luca",
         dob: ~D[1987-08-12],
-        height: "6 feet 1 inch",
+        height: 185,
         build: "Lean muscle",
         hair_colour: "Dark, wavy",
         ethnicity: "Mediterranean",
@@ -90,7 +95,7 @@ defmodule Sqlhelper.StaticData.Suspects do
       %{
         name: "Fiona McAllister",
         dob: ~D[1990-04-04],
-        height: "5 feet 6 inches",
+        height: 167,
         build: "Sturdy and unyielding",
         hair_colour: "Fiery curls",
         ethnicity: "Gaelic",
@@ -101,7 +106,7 @@ defmodule Sqlhelper.StaticData.Suspects do
       %{
         name: "Ezra Knight",
         dob: ~D[1988-11-11],
-        height: "6 feet 3 inches",
+        height: 191,
         build: "Sinewy",
         hair_colour: "Ash-blonde",
         ethnicity: "Anglo-Saxon",
@@ -112,7 +117,7 @@ defmodule Sqlhelper.StaticData.Suspects do
       %{
         name: "Bianca Rios",
         dob: ~D[1992-05-05],
-        height: "5 feet 8 inches",
+        height: 173,
         build: "Graceful yet lethal",
         hair_colour: "Auburn",
         ethnicity: "Hispanic",
@@ -147,19 +152,6 @@ defmodule Sqlhelper.StaticData.Suspects do
     IO.inspect(suspect_data, label: "suspect_data")
 
     suspect_data
-    |> Enum.map(
-      &(Repo.insert!(%Suspects{} |> Suspects.changeset(&1))
-        |> insert_media())
-    )
-  end
-
-  def insert_media(media_data) do
-    # IO.inspect(media_data, label: "media_data")
-    name = String.split(media_data.name, " ") |> List.first()
-    img_path = "/images/suspects/#{name}_1.jpeg"
-
-    %SuspectsMedia{}
-    |> SuspectsMedia.changeset(%{image_path: img_path, suspect_id: media_data.id})
-    |> Repo.insert!()
+    |> Enum.map(&Repo.insert!(%Suspects{} |> Suspects.changeset(&1)))
   end
 end

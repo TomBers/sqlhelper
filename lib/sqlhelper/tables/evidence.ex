@@ -4,6 +4,7 @@ defmodule Sqlhelper.Tables.Evidence do
 
   schema "evidence" do
     field :type, :string
+    field :image_path, :string
     field :timestamp, :naive_datetime
     field :location_lat, :float
     field :location_long, :float
@@ -18,6 +19,7 @@ defmodule Sqlhelper.Tables.Evidence do
     evidence
     |> cast(attrs, [
       :type,
+      :image_path,
       :timestamp,
       :location_lat,
       :location_long,
@@ -27,6 +29,7 @@ defmodule Sqlhelper.Tables.Evidence do
     ])
     |> validate_required([
       :type,
+      :image_path,
       :timestamp,
       :location_lat,
       :location_long,

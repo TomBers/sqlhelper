@@ -3,23 +3,34 @@ defmodule Sqlhelper.Tables.Suspects do
   import Ecto.Changeset
 
   schema "suspects" do
+    field :image_path, :string
     field :name, :string
     field :dob, :date
-    field :height, :string
+    field :height, :integer
     field :build, :string
     field :hair_colour, :string
     field :ethnicity, :string
     field :notes, :string
     belongs_to :crime, Sqlhelper.Tables.Crimes
-    has_many :suspects_media, Sqlhelper.Tables.SuspectsMedia, foreign_key: :suspect_id
 
     timestamps()
   end
 
   def changeset(suspect, attrs) do
     suspect
-    |> cast(attrs, [:name, :dob, :height, :build, :hair_colour, :ethnicity, :notes, :crime_id])
+    |> cast(attrs, [
+      :image_path,
+      :name,
+      :dob,
+      :height,
+      :build,
+      :hair_colour,
+      :ethnicity,
+      :notes,
+      :crime_id
+    ])
     |> validate_required([
+      :image_path,
       :name,
       :dob,
       :height,

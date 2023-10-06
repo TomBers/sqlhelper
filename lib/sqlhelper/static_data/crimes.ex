@@ -1,5 +1,5 @@
 defmodule Sqlhelper.StaticData.Crimes do
-  alias Sqlhelper.Tables.{Crimes, CrimesMedia}
+  alias Sqlhelper.Tables.Crimes
   alias Sqlhelper.Repo
 
   @test_crime 1
@@ -19,18 +19,6 @@ defmodule Sqlhelper.StaticData.Crimes do
 
   def insert(crime_data) do
     crime_data
-    |> Enum.map(
-      &(Repo.insert!(%Crimes{} |> Crimes.changeset(&1))
-        |> insert_media())
-    )
-  end
-
-  def insert_media(media_data) do
-    # IO.inspect(media_data, label: "media_data")
-    img_path = "/images/doc.png"
-
-    %CrimesMedia{}
-    |> CrimesMedia.changeset(%{image_path: img_path, crime_id: media_data.id})
-    |> Repo.insert!()
+    |> Enum.map(&Repo.insert!(%Crimes{} |> Crimes.changeset(&1)))
   end
 end
