@@ -3,17 +3,15 @@ defmodule Sqlhelper.StaticData.Witnesses do
   alias Sqlhelper.Repo
 
   @test_crime 1
-  @suspect_id 1
   def data do
-    1..5 |> Enum.map(fn _ -> witness_map(@test_crime, @suspect_id) end)
+    1..20 |> Enum.map(fn _ -> witness_map(@test_crime) end)
   end
 
-  defp witness_map(crime_id, suspect_id) do
+  defp witness_map(crime_id) do
     %{
       name: Faker.Person.name(),
       dob: Faker.Date.between(~D[1971-01-01], ~D[2008-01-01]),
       relation_to_suspect: Enum.random(["Friend", "Family", "Colleague", "Other"]),
-      suspect_id: suspect_id,
       crime_id: crime_id
     }
   end

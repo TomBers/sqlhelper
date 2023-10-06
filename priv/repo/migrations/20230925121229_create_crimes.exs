@@ -5,7 +5,7 @@ defmodule Sqlhelper.Repo.Migrations.CreateCrimes do
     create table(:crimes) do
       add :title, :string
       add :summary, :string
-      add :description, :string
+      add :description, :text
 
       timestamps()
     end

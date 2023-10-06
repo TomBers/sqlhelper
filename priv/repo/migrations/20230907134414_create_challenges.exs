@@ -10,7 +10,7 @@ defmodule Sqlhelper.Repo.Migrations.CreateChallenges do
 
     create table(:challenges) do
       add :title, :string
-      add :text, :string
+      add :text, :text
       add :answer, :string
       add :difficulty, :string
       add :hints, :string

@@ -79,7 +79,9 @@ defmodule SqlhelperWeb.Table do
                     phx-click="delete_result"
                     phx-value-row={format_query_result(row)}
                     phx-value-col={format_columns(@columns)}
+                    phx-hook="TaskListToggle"
                     class="btn"
+                    id={format_query_result(row)}
                   >
                     Delete
                   </button>
@@ -87,7 +89,9 @@ defmodule SqlhelperWeb.Table do
               <% end %>
               <%= for value <- row do %>
                 <%= if is_image(value) do %>
-                  <td class="px-6 py-4 whitespace-nowrap"><img src={value} class="w-40 h-auto" /></td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <img src={value} alt={value} title={value} class="w-40 h-auto hover:scale-150" />
+                  </td>
                 <% else %>
                   <td class="px-6 py-4 whitespace-nowrap"><%= value %></td>
                 <% end %>

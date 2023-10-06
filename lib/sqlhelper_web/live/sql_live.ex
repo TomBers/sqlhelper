@@ -8,7 +8,7 @@ defmodule SqlhelperWeb.SqlLive do
   @joiner_char "__"
 
   def mount(%{"challenge_id" => id}, _session, socket) do
-    q = "select * from suspects join suspects_media on suspects.id = suspects_media.suspect_id"
+    q = "select * from evidence_media join evidence on evidence.id = evidence_media.evidence_id"
     # TODO - get the challenge and tasks from the database
     challenge = Sqlhelper.Challenges.get_challenge!(id)
 
@@ -22,7 +22,8 @@ defmodule SqlhelperWeb.SqlLive do
        guess: "",
        answer: "",
        query_history: [],
-       saved_results: []
+       saved_results: [],
+       draw_open: true
      )}
   end
 

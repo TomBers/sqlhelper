@@ -6,14 +6,13 @@ defmodule Sqlhelper.Tables.Witnesses do
     field :name, :string
     field :dob, :date
     field :relation_to_suspect, :string
-    belongs_to :suspect, Sqlhelper.Tables.Suspects
 
     timestamps()
   end
 
   def changeset(witness, attrs) do
     witness
-    |> cast(attrs, [:name, :dob, :relation_to_suspect, :suspect_id])
-    |> validate_required([:name, :dob, :relation_to_suspect, :suspect_id])
+    |> cast(attrs, [:name, :dob, :relation_to_suspect])
+    |> validate_required([:name, :dob, :relation_to_suspect])
   end
 end
