@@ -4,226 +4,80 @@ defmodule Sqlhelper.StaticData.Statements do
 
   @crime_id 1
 
-  def data do
-    game_data()
+  def data(suspect) do
+    game_data(suspect)
   end
 
-  defp game_data do
-    [
-      %{
-        timestamp: Faker.DateTime.backward(360),
-        location_lat: Faker.Address.latitude(),
-        location_long: Faker.Address.longitude(),
-        statement_text:
-          "I noticed Aiden near the crime scene shortly before the incident. He looked quite agitated and was pacing back and forth.",
-        suspect_id: 1,
-        witness_id: 1,
-        crime_id: @crime_id
-      },
-      %{
-        timestamp: Faker.DateTime.backward(360),
-        location_lat: Faker.Address.latitude(),
-        location_long: Faker.Address.longitude(),
-        statement_text:
-          "Aiden was with a group of us discussing the charity auction when we heard about the murder. He seemed as shocked as everyone else.",
-        suspect_id: 1,
-        witness_id: 2,
-        crime_id: @crime_id
-      },
-      %{
-        timestamp: Faker.DateTime.backward(360),
-        location_lat: Faker.Address.latitude(),
-        location_long: Faker.Address.longitude(),
-        statement_text:
-          "I saw Liliana near the conservatory right before the murder happened. She was holding a small vial of some liquid; it looked sinister.",
-        suspect_id: 2,
-        witness_id: 3,
-        crime_id: @crime_id
-      },
-      %{
-        timestamp: Faker.DateTime.backward(360),
-        location_lat: Faker.Address.latitude(),
-        location_long: Faker.Address.longitude(),
-        statement_text:
-          "Liliana was with me in the library when we heard the scream. She seemed genuinely shocked and scared.",
-        suspect_id: 2,
-        witness_id: 4,
-        crime_id: @crime_id
-      },
-      %{
-        timestamp: Faker.DateTime.backward(360),
-        location_lat: Faker.Address.latitude(),
-        location_long: Faker.Address.longitude(),
-        statement_text:
-          "Sebastian always had a cold demeanor. On the night of the murder, I saw him lurking around the hallway, his face was emotionless even after hearing about the murder.",
-        suspect_id: 3,
-        witness_id: 5,
-        crime_id: @crime_id
-      },
-      %{
-        timestamp: Faker.DateTime.backward(360),
-        location_lat: Faker.Address.latitude(),
-        location_long: Faker.Address.longitude(),
-        statement_text:
-          "Sebastian was hosting a charity event that night. He was surrounded by people when the crime occurred.",
-        suspect_id: 3,
-        witness_id: 6,
-        crime_id: @crime_id
-      },
-      %{
-        timestamp: Faker.DateTime.backward(360),
-        location_lat: Faker.Address.latitude(),
-        location_long: Faker.Address.longitude(),
-        statement_text:
-          "I overheard Valeria having a heated argument with the victim earlier that day. She looked furious.",
-        suspect_id: 4,
-        witness_id: 7,
-        crime_id: @crime_id
-      },
-      %{
-        timestamp: Faker.DateTime.backward(360),
-        location_lat: Faker.Address.latitude(),
-        location_long: Faker.Address.longitude(),
-        statement_text:
-          "Valeria was performing a protective ritual for some guests at the time of the murder. She was in full view of several people.",
-        suspect_id: 4,
-        witness_id: 8,
-        crime_id: @crime_id
-      },
-      %{
-        timestamp: Faker.DateTime.backward(360),
-        location_lat: Faker.Address.latitude(),
-        location_long: Faker.Address.longitude(),
-        statement_text:
-          "I saw Dmitri near the crime scene looking very anxious and constantly checking his watch.",
-        suspect_id: 5,
-        witness_id: 9,
-        crime_id: @crime_id
-      },
-      %{
-        timestamp: Faker.DateTime.backward(360),
-        location_lat: Faker.Address.latitude(),
-        location_long: Faker.Address.longitude(),
-        statement_text:
-          "Dmitri was playing chess with me when we were interrupted by the news of the murder. He looked shocked.",
-        suspect_id: 5,
-        witness_id: 10,
-        crime_id: @crime_id
-      },
-      %{
-        timestamp: Faker.DateTime.backward(360),
-        location_lat: Faker.Address.latitude(),
-        location_long: Faker.Address.longitude(),
-        statement_text:
-          "Amara was seen arguing with the victim a day before. She has this eerie way of handling snakes; who knows what she is capable of.",
-        suspect_id: 6,
-        witness_id: 11,
-        crime_id: @crime_id
-      },
-      %{
-        timestamp: Faker.DateTime.backward(360),
-        location_lat: Faker.Address.latitude(),
-        location_long: Faker.Address.longitude(),
-        statement_text:
-          "Amara was helping me with snakebite first aid training during the time the crime supposedly occurred.",
-        suspect_id: 6,
-        witness_id: 12,
-        crime_id: @crime_id
-      },
-      %{
-        timestamp: Faker.DateTime.backward(360),
-        location_lat: Faker.Address.latitude(),
-        location_long: Faker.Address.longitude(),
-        statement_text:
-          "I saw Raphael near the victim's safe a few hours before the murder. He seemed to be fiddling with the lock.",
-        suspect_id: 7,
-        witness_id: 13,
-        crime_id: @crime_id
-      },
-      %{
-        timestamp: Faker.DateTime.backward(360),
-        location_lat: Faker.Address.latitude(),
-        location_long: Faker.Address.longitude(),
-        statement_text:
-          "Raphael was entertaining guests with his piano skills all evening. He was nowhere near the crime scene.",
-        suspect_id: 7,
-        witness_id: 14,
-        crime_id: @crime_id
-      },
-      %{
-        timestamp: Faker.DateTime.backward(360),
-        location_lat: Faker.Address.latitude(),
-        location_long: Faker.Address.longitude(),
-        statement_text:
-          "I saw Fiona leaving the victim's room with a stern face just hours before the crime.",
-        suspect_id: 8,
-        witness_id: 15,
-        crime_id: @crime_id
-      },
-      %{
-        timestamp: Faker.DateTime.backward(360),
-        location_lat: Faker.Address.latitude(),
-        location_long: Faker.Address.longitude(),
-        statement_text:
-          "Fiona was at the family dinner, sitting right across from me when we were notified of the murder.",
-        suspect_id: 8,
-        witness_id: 16,
-        crime_id: @crime_id
-      },
-      %{
-        timestamp: Faker.DateTime.backward(360),
-        location_lat: Faker.Address.latitude(),
-        location_long: Faker.Address.longitude(),
-        statement_text:
-          "Ezra has the skill to deceive anyone with his illusions. I saw him near the victim before the crime.",
-        suspect_id: 9,
-        witness_id: 17,
-        crime_id: @crime_id
-      },
-      %{
-        timestamp: Faker.DateTime.backward(360),
-        location_lat: Faker.Address.latitude(),
-        location_long: Faker.Address.longitude(),
-        statement_text:
-          "Ezra was showing magic tricks to the children in the drawing-room when the incident happened.",
-        suspect_id: 9,
-        witness_id: 18,
-        crime_id: @crime_id
-      },
-      %{
-        timestamp: Faker.DateTime.backward(360),
-        location_lat: Faker.Address.latitude(),
-        location_long: Faker.Address.longitude(),
-        statement_text:
-          "I saw Bianca arguing with the victim the night before. She looked really upset.",
-        suspect_id: 10,
-        witness_id: 19,
-        crime_id: @crime_id
-      },
-      %{
-        timestamp: Faker.DateTime.backward(360),
-        location_lat: Faker.Address.latitude(),
-        location_long: Faker.Address.longitude(),
-        statement_text:
-          "Bianca was teaching a dance class to some guests during the time the murder took place. Many people can vouch for her.",
-        suspect_id: 10,
-        witness_id: 20,
-        crime_id: @crime_id
-      }
-    ]
+  defp game_data(suspect) do
+    witnesses = Repo.all(Sqlhelper.Tables.Witnesses)
+    location = Faker.Address.street_name() <> ", " <> Faker.Address.city()
+    date = Faker.Date.backward(7)
+
+    witnesses
+    |> Enum.map(fn witness ->
+      witness
+      |> gen_statement(location, date, suspect)
+      |> statements_map(@crime_id, witness.id)
+    end)
   end
 
-  # defp statements_map(crime_id, suspect_id, witness_id) do
-  #   %{
-  #     timestamp: Faker.DateTime.backward(360),
-  #     location_lat: Faker.Address.latitude(),
-  #     location_long: Faker.Address.longitude(),
-  #     statement_text: Faker.Lorem.sentence(),
-  #     suspect_id: suspect_id,
-  #     witness_id: witness_id,
-  #     crime_id: crime_id
-  #   }
-  # end
+  defp gen_statement(witness, location, date, suspect) do
+    "
+    Statement Date: #{Faker.Date.backward(5)}
+    Statement Time: #{Enum.random(["9 AM", "9.30 AM", "10 AM", "10.30 AM", "3 PM", "3.30 PM", "4 PM", "4.30 PM"])}
+
+    I, [#{witness.name}], was present at [#{location}] on [#{date}]
+    " <> statement_body(witness.id, suspect)
+  end
+
+  def statement_body(id, suspect) do
+    case id do
+      # This should refer to height of the suspect
+      1 ->
+        "due to my obligation as the event coordinator for a charity auction being held there. My primary duty was to oversee the setup of the auction items and ensure everything was running smoothly.
+
+      Around 7:00 PM, while I was verifying the arrangements in the main hall, I noticed an individual entering the premises from the north entrance. I would estimate around #{suspect.height - 5} to #{suspect.height + 5} cm tall. They were wearing a dark-colored, possibly black or dark grey, trench coat, a hat that shadowed their face, and what appeared to be leather gloves.
+
+      I didn't think much of it at the time as there were many people coming in for the event. However, approximately 40 minutes later, around 7:40 PM, I heard a strange noise emanating from the direction of the east wing of the venue. It sounded like a muffled cry followed by a thud. It was brief and I initially thought it was just the staff moving auction items around. However, the unsettling feeling lingered, prompting me to notify the security personnel.
+
+      I hereby declare that the above statement is true to the best of my knowledge and recollection."
+
+      # This should refer to the hair color of the suspect
+      2 ->
+        "to attend a charity auction as an invited guest. Around 7:00 PM, while I was enjoying some refreshments in the lounge area, I observed an individual entering the venue through the main entrance. The person had #{suspect.hair_colour} hair and was wearing a dark trench coat and a wide-brimmed hat that covered most of their face. Around 7:40 PM, while I was bidding on an item, I heard a suspicious sound, like something heavy being dragged, coming from the hallway leading to the restrooms. It struck me as odd, prompting a sense of unease."
+
+      # This should refer to ethnicity of the suspect
+      3 ->
+        "as a volunteer for the charity auction event. Around 7:00 PM, I was stationed near the north entrance when I saw a #{String.downcase(suspect.ethnicity)} individual, entering the venue. They were dressed in a dark-colored trench coat and a hat. Approximately 40 minutes later, I was assisting guests when a sudden chilling scream echoed from the east wing, followed by a silence that was equally unsettling."
+
+      # This should refer to gender of the suspect
+      4 ->
+        "as part of the security personnel assigned for the charity auction event. At about 7:00 PM, while monitoring the CCTV, I noticed what looked like a #{String.downcase(suspect.gender)}, entering through the north entrance. They were clad in a dark trench coat, and a hat that obscured their face. Around 7:40 PM, I heard a strange noise over the radio from one of the other security personnel near the east wing, describing a sudden cry followed by a thud. "
+
+      # This should refer to age of the suspect
+      5 ->
+        "as a photographer to cover the charity auction event. I was taking photos near the main entrance around 7:00 PM when I saw individual, roughtly #{get_years(suspect.dob)} years old. They were dressed in a dark trench coat and a hat that cast a shadow over their face. Roughly 40 minutes later, while I was photographing auction items in the east wing, I heard a suspicious noise like a muffled shout followed by a dull thud, which sent a shiver down my spine."
+
+      _ ->
+        "I saw nothing Governor!"
+    end
+  end
+
+  defp get_years(dob) do
+    diff_days = Date.diff(Date.utc_today(), dob)
+    div(diff_days, 365)
+  end
+
+  defp statements_map(statement, crime_id, witness_id) do
+    %{
+      timestamp: Faker.DateTime.backward(7),
+      location_lat: Faker.Address.latitude(),
+      location_long: Faker.Address.longitude(),
+      statement_text: statement,
+      witness_id: witness_id,
+      crime_id: crime_id
+    }
+  end
 
   def insert(witness_data) do
     witness_data

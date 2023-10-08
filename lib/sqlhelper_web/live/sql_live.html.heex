@@ -7,8 +7,6 @@
         <p class="py-6">
           <%= @challenge.text %>
         </p>
-        <.task_list tasks={@challenge.tasks} />
-        <br />
         <button class="btn" onclick="my_modal_3.showModal()">Instructions</button>
         <dialog id="my_modal_3" class="modal">
           <div class="modal-box">
@@ -21,20 +19,19 @@
             <p class="py-4">You have the following tables:</p>
             <ul class="list-disc list-inside">
               <li>crimes</li>
-              <li>crimes_media</li>
               <li>evidence</li>
-              <li>evidence_media</li>
               <li>witnesses</li>
-              <li>witnesses_media</li>
               <li>statements</li>
               <li>suspects</li>
-              <li>suspects_media</li>
             </ul>
             <p class="py-4">
               Combine evidence and witness statements to find the guilty person!
             </p>
           </div>
         </dialog>
+        <br /><br />
+        <.task_list tasks={@challenge.tasks} />
+        <br />
       </div>
     </div>
   </div>

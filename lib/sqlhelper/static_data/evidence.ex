@@ -1,25 +1,35 @@
 defmodule Sqlhelper.StaticData.Evidence do
-  alias Sqlhelper.Tables.{Evidence, EvidenceMedia}
+  alias Sqlhelper.Tables.Evidence
   alias Sqlhelper.Repo
 
   @test_crime 1
-  def data do
+  def data(killer) do
     suspects = Repo.all(Sqlhelper.Tables.Suspects)
 
-    suspects |> Enum.flat_map(fn suspect -> gen_evidence(suspect) end)
+    suspects |> Enum.flat_map(fn suspect -> gen_evidence(suspect, killer) end)
   end
 
-  defp gen_evidence(suspect) do
-    1..Enum.random([1, 2, 3, 4, 5])
-    |> Enum.map(fn _ -> evidence_map(@test_crime, suspect.id) end)
+  defp gen_evidence(suspect, killer) do
+    evidence =
+      1..Enum.random([1, 2, 3])
+      |> Enum.map(fn _ -> evidence_map(@test_crime, suspect.id) end)
+
+    evidence ++ [evidence_map(@test_crime, killer.id, "DNA")]
   end
 
-  defp evidence_map(crime_id, suspect_id) do
-    type = get_evidence_type()
+  defp evidence_map(crime_id, suspect_id, manual_type \\ nil) do
+    type =
+      if is_nil(manual_type) do
+        get_evidence_type()
+      else
+        manual_type
+      end
+
     notes = get_evidence_notes(type)
 
     %{
       type: type,
+      image_path: "/images/evidence/#{String.downcase(type)}.jpeg",
       timestamp: Faker.DateTime.backward(360),
       location_lat: Faker.Address.latitude(),
       location_long: Faker.Address.longitude(),
@@ -76,19 +86,6 @@ defmodule Sqlhelper.StaticData.Evidence do
 
   def insert(evidence_data) do
     evidence_data
-    |> Enum.map(
-      &(Repo.insert!(%Evidence{} |> Evidence.changeset(&1))
-        |> insert_media())
-    )
-  end
-
-  def insert_media(media_data) do
-    # IO.inspect(media_data, label: "media_data")
-    name = String.downcase(media_data.type)
-    img_path = "/images/evidence/#{name}.jpeg"
-
-    %EvidenceMedia{}
-    |> EvidenceMedia.changeset(%{image_path: img_path, evidence_id: media_data.id})
-    |> Repo.insert!()
+    |> Enum.map(&Repo.insert!(%Evidence{} |> Evidence.changeset(&1)))
   end
 end

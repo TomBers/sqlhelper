@@ -8,7 +8,9 @@ defmodule SqlhelperWeb.SqlLive do
   @joiner_char "__"
 
   def mount(%{"challenge_id" => id}, _session, socket) do
-    q = "select * from evidence_media join evidence on evidence.id = evidence_media.evidence_id"
+    q =
+      Enum.random(["SELECT * FROM evidence"])
+
     # TODO - get the challenge and tasks from the database
     challenge = Sqlhelper.Challenges.get_challenge!(id)
 
@@ -42,7 +44,7 @@ defmodule SqlhelperWeb.SqlLive do
          )}
 
       {:error, %{postgres: %{message: error}}} ->
-        {:noreply, assign(socket, error: error, query_history: query_history)}
+        {:noreply, assign(socket, query: query, error: error, query_history: query_history)}
     end
   end
 

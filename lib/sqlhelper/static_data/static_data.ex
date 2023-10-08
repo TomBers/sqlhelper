@@ -19,20 +19,17 @@ defmodule Sqlhelper.StaticData do
 
     data_checks = Repo.all(DataCheck)
 
-    # insert_data("animals", data_checks, Animals.data(), &Animals.insert/1)
-    # insert_data("owners", data_checks, Owners.data(), &Owners.insert/1)
-
     insert_data("author", data_checks, Author.data(), &Author.insert/1)
     insert_data("challenges", data_checks, Challenges.data(), &Challenges.insert/1)
     insert_data("crimes", data_checks, Crimes.data(), &Crimes.insert/1)
 
-    insert_data("evidence", data_checks, Evidence.data(), &Evidence.insert/1)
-
-    # Statements
-
     insert_data("suspects", data_checks, Suspects.data(), &Suspects.insert/1)
+
+    killer = Repo.get(Sqlhelper.Tables.Suspects, Enum.random(1..10))
+
+    insert_data("evidence", data_checks, Evidence.data(killer), &Evidence.insert/1)
     insert_data("witnesses", data_checks, Witnesses.data(), &Witnesses.insert/1)
-    insert_data("statements", data_checks, Statements.data(), &Statements.insert/1)
+    insert_data("statements", data_checks, Statements.data(killer), &Statements.insert/1)
   end
 
   defp insert_data(name, data_checks, static_data, insert_fn) do

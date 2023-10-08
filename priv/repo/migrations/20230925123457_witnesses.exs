@@ -6,18 +6,10 @@ defmodule Sqlhelper.Repo.Migrations.Witnesses do
       add :name, :string
       add :dob, :date
       add :relation_to_suspect, :string
-
-      timestamps()
-    end
-
-    create table(:witnesses_media) do
       add :image_path, :string
-      add :witness_id, references(:witnesses, on_delete: :nothing)
 
       timestamps()
     end
-
-    create index(:witnesses_media, [:witness_id])
 
     create table(:statements) do
       add :timestamp, :naive_datetime
@@ -25,7 +17,6 @@ defmodule Sqlhelper.Repo.Migrations.Witnesses do
       add :location_long, :float
       add :statement_text, :text
 
-      add :suspect_id, references(:suspects, on_delete: :nothing)
       add :witness_id, references(:witnesses, on_delete: :nothing)
       add :crime_id, references(:crimes, on_delete: :nothing)
 
@@ -34,6 +25,5 @@ defmodule Sqlhelper.Repo.Migrations.Witnesses do
 
     create index(:statements, [:witness_id])
     create index(:statements, [:crime_id])
-    create index(:statements, [:suspect_id])
   end
 end
