@@ -30,17 +30,22 @@ defmodule Sqlhelper.StaticData.Challenges do
     data = [
       %{
         instruction: "Find the details of the case",
-        hint: "Hint 1, Look at the crimes table to find a open cases",
-        challenge_id: challenge.id
-      },
-      %{
-        instruction: "Look at the evidence of the case",
-        hint: "Look at the evidence table (join on the evidence media table to see the evidence)",
+        hint: "Look at the crimes table to find a open cases",
         challenge_id: challenge.id
       },
       %{
         instruction: "See the current suspects",
         hint: "Join on the suspects table with suspects media to see the suspects",
+        challenge_id: challenge.id
+      },
+      %{
+        instruction: "Look at the evidence of the case",
+        hint: "Look at the evidence table",
+        challenge_id: challenge.id
+      },
+      %{
+        instruction: "Look at the statements relates to the case",
+        hint: "Look at the statements table",
         challenge_id: challenge.id
       }
     ]

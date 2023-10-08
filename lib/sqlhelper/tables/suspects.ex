@@ -9,6 +9,7 @@ defmodule Sqlhelper.Tables.Suspects do
     field :height, :integer
     field :build, :string
     field :hair_colour, :string
+    field :gender, :string
     field :ethnicity, :string
     field :notes, :string
     belongs_to :crime, Sqlhelper.Tables.Crimes
@@ -25,6 +26,7 @@ defmodule Sqlhelper.Tables.Suspects do
       :height,
       :build,
       :hair_colour,
+      :gender,
       :ethnicity,
       :notes,
       :crime_id
@@ -36,6 +38,7 @@ defmodule Sqlhelper.Tables.Suspects do
       :height,
       :build,
       :hair_colour,
+      :gender,
       :ethnicity,
       :notes,
       :crime_id

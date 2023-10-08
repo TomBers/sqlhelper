@@ -3,19 +3,28 @@ defmodule Sqlhelper.StaticData.Evidence do
   alias Sqlhelper.Repo
 
   @test_crime 1
-  def data do
+  def data(killer) do
     suspects = Repo.all(Sqlhelper.Tables.Suspects)
 
-    suspects |> Enum.flat_map(fn suspect -> gen_evidence(suspect) end)
+    suspects |> Enum.flat_map(fn suspect -> gen_evidence(suspect, killer) end)
   end
 
-  defp gen_evidence(suspect) do
-    1..Enum.random([1, 2, 3, 4, 5])
-    |> Enum.map(fn _ -> evidence_map(@test_crime, suspect.id) end)
+  defp gen_evidence(suspect, killer) do
+    evidence =
+      1..Enum.random([1, 2, 3])
+      |> Enum.map(fn _ -> evidence_map(@test_crime, suspect.id) end)
+
+    evidence ++ [evidence_map(@test_crime, killer.id, "DNA")]
   end
 
-  defp evidence_map(crime_id, suspect_id) do
-    type = get_evidence_type()
+  defp evidence_map(crime_id, suspect_id, manual_type \\ nil) do
+    type =
+      if is_nil(manual_type) do
+        get_evidence_type()
+      else
+        manual_type
+      end
+
     notes = get_evidence_notes(type)
 
     %{

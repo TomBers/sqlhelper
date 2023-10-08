@@ -44,7 +44,7 @@ defmodule SqlhelperWeb.SqlLive do
          )}
 
       {:error, %{postgres: %{message: error}}} ->
-        {:noreply, assign(socket, error: error, query_history: query_history)}
+        {:noreply, assign(socket, query: query, error: error, query_history: query_history)}
     end
   end
 

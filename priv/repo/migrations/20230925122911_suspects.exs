@@ -9,6 +9,7 @@ defmodule Sqlhelper.Repo.Migrations.Suspects do
       add :height, :integer
       add :build, :string
       add :hair_colour, :string
+      add :gender, :string
       add :ethnicity, :string
       add :notes, :text
       add :crime_id, references(:crimes, on_delete: :nothing)
