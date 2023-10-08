@@ -44,7 +44,7 @@ defmodule Sqlhelper.StaticData.Challenges do
         challenge_id: challenge.id
       },
       %{
-        instruction: "Look at the statements relates to the case",
+        instruction: "Look at the statements relating to the case",
         hint: "Look at the statements table",
         challenge_id: challenge.id
       }
