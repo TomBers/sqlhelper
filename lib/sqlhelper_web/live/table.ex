@@ -37,7 +37,7 @@ defmodule SqlhelperWeb.Table do
 
   def sql_table(assigns) do
     ~H"""
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-x-auto">
+    <div class="mx-auto p-4 sm:p-6 lg:p-8 overflow-x-auto">
       <h1 class="text-lg"><%= @title %></h1>
       <table class="min-w-full divide-y divide-gray-200 border-solid">
         <thead class="bg-gray-50">
