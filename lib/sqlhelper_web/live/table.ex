@@ -1,5 +1,6 @@
 defmodule SqlhelperWeb.Table do
   use Phoenix.Component
+  import SqlhelperWeb.ViewData
 
   @joiner_char "__"
 
@@ -66,22 +67,7 @@ defmodule SqlhelperWeb.Table do
           <%= for {row, cnt} <- Enum.with_index(@rows) do %>
             <tr class="hover:bg-gray-100 odd:bg-white even:bg-gray-50">
               <td class="px-6 py-4 whitespace-nowrap">
-                <button class="btn" onclick={"#{@id_label}_#{cnt}.showModal()"}>View</button>
-                <dialog id={"#{@id_label}_#{cnt}"} class="modal">
-                  <div class="modal-box">
-                    <form method="dialog">
-                      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                        ✕
-                      </button>
-                    </form>
-                    <h3 class="font-bold text-lg">
-                      <%= for {_, cnt} <- Enum.with_index(row) do %>
-                        <%= Enum.at(@columns, cnt) %> : <%= IO.inspect(Enum.at(row, cnt)) %>
-                        <br />
-                      <% end %>
-                    </h3>
-                  </div>
-                </dialog>
+                <.view_data id={"#{@id_label}_#{cnt}"} row={row} columns={@columns} />
               </td>
               <%= if @allow_save do %>
                 <td class="px-6 py-4 whitespace-nowrap">

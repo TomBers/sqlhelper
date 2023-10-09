@@ -8,7 +8,7 @@ defmodule SqlhelperWeb.SqlLive do
   @joiner_char "__"
 
   def mount(%{"challenge_id" => id}, _session, socket) do
-    q = Enum.random(["SELECT * FROM evidence"])
+    q = Enum.random(["SELECT * FROM suspects"])
 
     # TODO - get the challenge and tasks from the database
     challenge = Sqlhelper.Challenges.get_challenge!(id)
@@ -67,7 +67,7 @@ defmodule SqlhelperWeb.SqlLive do
 
   def handle_event("submit_answer", %{"submitAnswer" => name}, socket) do
     IO.inspect(name, label: "Answer")
-    # TODO - store killer name in DB?
+    # TODO - store killer name in DB??
 
     {:noreply, socket}
   end

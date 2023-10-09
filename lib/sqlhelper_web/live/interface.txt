@@ -81,3 +81,18 @@
     <% end %>
   <% end %>
 </div>
+
+
+
+<table class="min-w-full divide-y divide-gray-200 border-solid">
+          <th>
+            <td>Lable</td>
+            <td>Value</td>
+          </th>
+          <%= for {_, cnt} <- Enum.with_index(@row) do %>
+            <tr>
+              <td><%= Enum.at(@columns, cnt) %></td>
+              <td><%= IO.inspect(Enum.at(@row, cnt)) %></td>
+            </tr>
+          <% end %>
+        </table>
