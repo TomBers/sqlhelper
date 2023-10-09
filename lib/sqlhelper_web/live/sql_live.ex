@@ -8,8 +8,7 @@ defmodule SqlhelperWeb.SqlLive do
   @joiner_char "__"
 
   def mount(%{"challenge_id" => id}, _session, socket) do
-    q =
-      Enum.random(["SELECT * FROM evidence"])
+    q = Enum.random(["SELECT * FROM evidence"])
 
     # TODO - get the challenge and tasks from the database
     challenge = Sqlhelper.Challenges.get_challenge!(id)

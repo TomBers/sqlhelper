@@ -41,6 +41,9 @@ defmodule SqlhelperWeb.Table do
       <table class="min-w-full divide-y divide-gray-200 border-solid">
         <thead class="bg-gray-50">
           <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              View
+            </th>
             <%= if @allow_save do %>
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Save
@@ -59,8 +62,26 @@ defmodule SqlhelperWeb.Table do
           </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
-          <%= for row <- @rows do %>
+          <%= for {row, cnt} <- Enum.with_index(@rows) do %>
             <tr class="hover:bg-gray-100 odd:bg-white even:bg-gray-50">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <button class="btn" onclick={"view_#{cnt}.showModal()"}>View</button>
+                <dialog id={"view_#{cnt}"} class="modal">
+                  <div class="modal-box">
+                    <form method="dialog">
+                      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                        ✕
+                      </button>
+                    </form>
+                    <h3 class="font-bold text-lg">
+                      <%= for {_, cnt} <- Enum.with_index(row) do %>
+                        <%= Enum.at(@columns, cnt) %> : <%= IO.inspect(Enum.at(row, cnt)) %>
+                        <br />
+                      <% end %>
+                    </h3>
+                  </div>
+                </dialog>
+              </td>
               <%= if @allow_save do %>
                 <td class="px-6 py-4 whitespace-nowrap">
                   <button
@@ -79,7 +100,6 @@ defmodule SqlhelperWeb.Table do
                     phx-click="delete_result"
                     phx-value-row={format_query_result(row)}
                     phx-value-col={format_columns(@columns)}
-                    phx-hook="TaskListToggle"
                     class="btn"
                     id={format_query_result(row)}
                   >

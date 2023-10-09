@@ -10,7 +10,7 @@ defmodule SqlhelperWeb.TaskList do
       <div class="collapse-content">
         <ol class="list-decimal ml-6">
           <%= for task <- @tasks do %>
-            <li onclick="window.taskListToggle(this)" class="task-list-task txt-base-400">
+            <li class="task-list-task txt-base-400">
               <%= task.instruction %>
             </li>
             <br />
