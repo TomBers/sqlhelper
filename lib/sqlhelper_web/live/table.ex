@@ -31,6 +31,7 @@ defmodule SqlhelperWeb.Table do
   attr :columns, :list, default: []
   attr :rows, :list, default: []
   attr :title, :string, default: "Table"
+  attr :id_label, :string, default: "view"
   attr :allow_save, :boolean, default: false
   attr :allow_delete, :boolean, default: false
 
@@ -65,8 +66,8 @@ defmodule SqlhelperWeb.Table do
           <%= for {row, cnt} <- Enum.with_index(@rows) do %>
             <tr class="hover:bg-gray-100 odd:bg-white even:bg-gray-50">
               <td class="px-6 py-4 whitespace-nowrap">
-                <button class="btn" onclick={"view_#{cnt}.showModal()"}>View</button>
-                <dialog id={"view_#{cnt}"} class="modal">
+                <button class="btn" onclick={"#{@id_label}_#{cnt}.showModal()"}>View</button>
+                <dialog id={"#{@id_label}_#{cnt}"} class="modal">
                   <div class="modal-box">
                     <form method="dialog">
                       <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">

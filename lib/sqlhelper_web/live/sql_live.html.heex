@@ -37,7 +37,14 @@
   </div>
 
   <form phx-submit="execute">
-    <.input type="textarea" name="query" value={@query} style="height: 200px;" id="queryTextArea" />
+    <.input
+      type="textarea"
+      name="query"
+      phx-hook="CtrlEnterSubmit"
+      value={@query}
+      style="height: 200px;"
+      id="queryTextArea"
+    />
 
     <button type="submit" class="btn btn-wide">
       Execute
@@ -62,6 +69,7 @@
               columns={split_res(col)}
               rows={[split_res(row)]}
               allow_delete={true}
+              id_label={Faker.Name.last_name()}
               title="Saved Result"
             />
           <% end %>
