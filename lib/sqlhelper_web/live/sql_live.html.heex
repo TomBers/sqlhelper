@@ -40,9 +40,9 @@
     <.input
       type="textarea"
       name="query"
+      phx-hook="CtrlEnterSubmit"
       value={@query}
       style="height: 200px;"
-      phx-hook="CtrlEnterSubmit"
       id="queryTextArea"
     />
 
@@ -69,6 +69,7 @@
               columns={split_res(col)}
               rows={[split_res(row)]}
               allow_delete={true}
+              id_label={Faker.Name.last_name()}
               title="Saved Result"
             />
           <% end %>
