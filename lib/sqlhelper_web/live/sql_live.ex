@@ -65,6 +65,13 @@ defmodule SqlhelperWeb.SqlLive do
      )}
   end
 
+  def handle_event("submit_answer", %{"submitAnswer" => name}, socket) do
+    IO.inspect(name, label: "Answer")
+    # TODO - store killer name in DB?
+
+    {:noreply, socket}
+  end
+
   defp split_res(res) do
     String.split(res, @joiner_char)
   end

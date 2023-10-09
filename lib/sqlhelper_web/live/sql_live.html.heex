@@ -42,7 +42,56 @@
     </form>
   </div>
   <div class="w-1/4 bg-blue-100">
-    <!-- Content for the second column (25% width) goes here -->
+    <div class="join join-vertical w-full">
+      <div class="collapse collapse-arrow join-item border border-base-300">
+        <input type="radio" name="my-accordion-4" id="my-accordion-1" checked="checked" />
+        <label for="my-accordion-1" class="collapse-title text-xl font-medium">
+          Tasks
+        </label>
+        <div class="collapse-content">
+          <.live_component module={SqlhelperWeb.TaskList} tasks={@challenge.tasks} id="taskList" />
+        </div>
+      </div>
+      <div class="collapse collapse-arrow join-item border border-base-300">
+        <input type="radio" name="my-accordion-4" id="my-accordion-2" />
+        <label for="my-accordion-2" class="collapse-title text-xl font-medium">
+          Evidence
+        </label>
+        <div class="collapse-content">
+          <div class="menu p-4 min-h-full bg-base-200 text-base-content">
+            <%= for {col, row} <- @saved_results do %>
+              <.sql_table
+                columns={split_res(col)}
+                rows={[split_res(row)]}
+                allow_delete={true}
+                id_label={Faker.Person.last_name()}
+                title="Saved Result"
+              />
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="collapse collapse-arrow join-item border border-base-300">
+        <input type="radio" name="my-accordion-4" id="my-accordion-3" />
+        <label for="my-accordion-3" class="collapse-title text-xl font-medium">
+          Who did it?
+        </label>
+        <div class="collapse-content">
+          <form phx-submit="submit_answer">
+            <.input
+              type="text"
+              value=""
+              name="submitAnswer"
+              id="submitAnswerInput"
+              placeholder="Enter the name of who did it"
+            />
+            <button type="submit" class="btn btn-wide my-4">
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <div>
