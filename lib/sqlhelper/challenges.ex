@@ -41,6 +41,8 @@ defmodule Sqlhelper.Challenges do
 
   def get_killer!(id), do: Repo.get_by(Killer, crime_id: id)
 
+  def get_suspects!(), do: Repo.all(Sqlhelper.Tables.Suspects)
+
   @doc """
   Creates a challenge.
 

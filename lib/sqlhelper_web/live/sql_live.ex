@@ -12,6 +12,8 @@ defmodule SqlhelperWeb.SqlLive do
 
     challenge = Sqlhelper.Challenges.get_challenge!(id)
     killer = Sqlhelper.Challenges.get_killer!(id)
+    # TODO - get the suspects associated with the challenge / crime
+    suspects = Sqlhelper.Challenges.get_suspects!()
 
     {:ok,
      assign(socket,
@@ -21,6 +23,7 @@ defmodule SqlhelperWeb.SqlLive do
        error: nil,
        challenge: challenge,
        killer: killer.killer,
+       suspects: suspects,
        guess: "",
        answer: "",
        query_history: [],
@@ -66,10 +69,8 @@ defmodule SqlhelperWeb.SqlLive do
      )}
   end
 
-  def handle_event("submit_answer", %{"submitAnswer" => name}, socket) do
-    IO.inspect(name, label: "Answer")
-
-    Killer.check_answer(name, socket.assigns.killer)
+  def handle_event("submit_answer", %{"suspect" => suspect_id}, socket) do
+    Killer.check_answer(suspect_id, socket.assigns.killer)
 
     {:noreply, socket}
   end

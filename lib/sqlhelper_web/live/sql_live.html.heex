@@ -78,13 +78,15 @@
         </label>
         <div class="collapse-content">
           <form phx-submit="submit_answer">
-            <.input
-              type="text"
-              value=""
-              name="submitAnswer"
-              id="submitAnswerInput"
-              placeholder="Enter the name of who did it"
-            />
+            <%= for suspect <- @suspects do %>
+              <.input
+                type="radio"
+                name="suspect"
+                value={suspect.id}
+                id={"suspect_#{suspect.id}"}
+              />
+              <label for={suspect.id}><%= suspect.name %></label>
+           <% end %>
             <button type="submit" class="btn btn-wide my-4">
               Submit
             </button>
