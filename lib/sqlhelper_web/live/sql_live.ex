@@ -3,15 +3,15 @@ defmodule SqlhelperWeb.SqlLive do
   use SqlhelperWeb, :html
 
   import SqlhelperWeb.Table
-  import SqlhelperWeb.TaskList
+  alias Sqlhelper.Tables.Killer
 
   @joiner_char "__"
 
   def mount(%{"challenge_id" => id}, _session, socket) do
     q = Enum.random(["SELECT * FROM suspects"])
 
-    # TODO - get the challenge and tasks from the database
     challenge = Sqlhelper.Challenges.get_challenge!(id)
+    killer = Sqlhelper.Challenges.get_killer!(id)
 
     {:ok,
      assign(socket,
@@ -20,6 +20,7 @@ defmodule SqlhelperWeb.SqlLive do
        columns: [],
        error: nil,
        challenge: challenge,
+       killer: killer.killer,
        guess: "",
        answer: "",
        query_history: [],
@@ -67,7 +68,8 @@ defmodule SqlhelperWeb.SqlLive do
 
   def handle_event("submit_answer", %{"submitAnswer" => name}, socket) do
     IO.inspect(name, label: "Answer")
-    # TODO - store killer name in DB??
+
+    Killer.check_answer(name, socket.assigns.killer)
 
     {:noreply, socket}
   end
