@@ -69,7 +69,8 @@ defmodule SqlhelperWeb.SqlLive do
      )}
   end
 
-  def handle_event("submit_answer", %{"suspect" => suspect_id}, socket) do
+  def handle_event("submit_answer", %{"suspects" => suspect_id}, socket) do
+    IO.inspect(suspect_id, label: "suspect_id")
     Killer.check_answer(suspect_id, socket.assigns.killer)
 
     {:noreply, socket}
