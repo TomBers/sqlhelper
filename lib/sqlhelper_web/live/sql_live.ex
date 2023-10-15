@@ -27,8 +27,7 @@ defmodule SqlhelperWeb.SqlLive do
        guess: "",
        answer: "",
        query_history: [],
-       saved_results: [],
-       draw_open: true
+       saved_results: []
      )}
   end
 
@@ -70,10 +69,14 @@ defmodule SqlhelperWeb.SqlLive do
   end
 
   def handle_event("submit_answer", %{"suspects" => suspect_id}, socket) do
-    IO.inspect(suspect_id, label: "suspect_id")
-    Killer.check_answer(suspect_id, socket.assigns.killer)
+    suspect = socket.assigns.suspects |> Enum.find(&(&1.id == String.to_integer(suspect_id)))
 
-    {:noreply, socket}
+    {:noreply,
+     push_event(
+       socket,
+       "user_has_guessed",
+       %{is_correct: Killer.check_answer(suspect_id, socket.assigns.killer), name: suspect.name}
+     )}
   end
 
   defp split_res(res) do

@@ -25,7 +25,8 @@ defmodule Sqlhelper.StaticData do
 
     insert_data("suspects", data_checks, Suspects.data(), &Suspects.insert/1)
 
-    killer = Repo.get(Sqlhelper.Tables.Suspects, Enum.random(1..10))
+    # For now hard code - Dmitri Ivanov
+    killer = Repo.get(Sqlhelper.Tables.Suspects, 5)
 
     insert_data("killer", data_checks, Killer.data(killer), &Killer.insert/1)
     insert_data("evidence", data_checks, Evidence.data(killer), &Evidence.insert/1)
