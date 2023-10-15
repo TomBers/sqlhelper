@@ -37,6 +37,19 @@ Hooks.CtrlEnterSubmit = {
     }
 }
 
+Hooks.ShowAlert = {
+    mounted() {
+        this.handleEvent("user_has_guessed", (message) => {
+            console.log(message);
+            if (message.is_correct) {
+                alert(`Correct ${message.name} IS the murderer!`);
+            } else {
+                alert(`${message.name} is innocent!`);
+            }
+        })
+    }
+}
+
 // Hooks.TaskListToggle = {
 //     mounted() {
 //         this.el.addEventListener("click", (e) => {

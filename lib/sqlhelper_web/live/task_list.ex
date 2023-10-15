@@ -1,23 +1,27 @@
 defmodule SqlhelperWeb.TaskList do
-  use Phoenix.Component
+  use Phoenix.LiveComponent
 
-  def task_list(assigns) do
+  def render(assigns) do
     ~H"""
-    <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-200">
-      <div class="collapse-title text-xl font-medium">
-        Task List
-      </div>
-      <div class="collapse-content">
-        <ol class="list-decimal ml-6">
-          <%= for task <- @tasks do %>
-            <li class="task-list-task txt-base-400">
-              <%= task.instruction %>
-            </li>
-            <br />
-          <% end %>
-        </ol>
-      </div>
-    </div>
+    <ol class="list-decimal ml-6">
+      <%= for task <- @tasks do %>
+        <li
+          class="task-list-task txt-base-400"
+          phx-click="complete_task"
+          phx-value-instruction={task.instruction}
+          phx-target={@myself}
+        >
+          <%= task.instruction %>
+        </li>
+        <br />
+      <% end %>
+    </ol>
     """
+  end
+
+  def handle_event("complete_task", %{"instruction" => val}, socket) do
+    new_tasks = Enum.filter(socket.assigns.tasks, fn task -> task.instruction != val end)
+
+    {:noreply, assign(socket, tasks: new_tasks)}
   end
 end

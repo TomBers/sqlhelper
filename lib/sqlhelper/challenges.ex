@@ -8,6 +8,8 @@ defmodule Sqlhelper.Challenges do
 
   alias Sqlhelper.Challenges.Challenge
 
+  alias Sqlhelper.Tables.Killer
+
   @doc """
   Returns the list of challenges.
 
@@ -36,6 +38,10 @@ defmodule Sqlhelper.Challenges do
 
   """
   def get_challenge!(id), do: Repo.get!(Challenge, id) |> Repo.preload(:tasks)
+
+  def get_killer!(id), do: Repo.get_by(Killer, crime_id: id)
+
+  def get_suspects!(), do: Repo.all(Sqlhelper.Tables.Suspects)
 
   @doc """
   Creates a challenge.

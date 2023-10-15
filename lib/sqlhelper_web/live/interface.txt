@@ -1,0 +1,117 @@
+<div class="flex">
+  <h1 class="text-5xl font-bold"><%= @challenge.title %></h1>
+  <p class="py-6">
+    <%= @challenge.text %>
+  </p>
+  <button class="btn" onclick="my_modal_3.showModal()">Instructions</button>
+  <dialog id="my_modal_3" class="modal">
+    <div class="modal-box">
+      <form method="dialog">
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+      </form>
+      <h3 class="font-bold text-lg">
+        You have to solve the crime by querying the database to find answers.
+      </h3>
+      <p class="py-4">You have the following tables:</p>
+      <ul class="list-disc list-inside">
+        <li>crimes</li>
+        <li>evidence</li>
+        <li>witnesses</li>
+        <li>statements</li>
+        <li>suspects</li>
+      </ul>
+      <p class="py-4">
+        Combine evidence and witness statements to find the guilty person!
+      </p>
+    </div>
+  </dialog>
+  <br /><br />
+  <.task_list tasks={@challenge.tasks} />
+  <br />
+
+  <form phx-submit="execute">
+    <.input
+      type="textarea"
+      name="query"
+      phx-hook="CtrlEnterSubmit"
+      value={@query}
+      style="height: 200px;"
+      id="queryTextArea"
+    />
+
+    <button type="submit" class="btn btn-wide">
+      Execute
+    </button>
+    (Queries <%= length(@query_history) %>)
+  </form>
+
+  <div class="drawer drawer-end">
+    <input id="my-drawer" type="checkbox" class="drawer-toggle" id="drawToggle" />
+    <div class="drawer-content">
+      <!-- Page content here -->
+      <label for="my-drawer" class="drawer-button btn btn-primary" id="drawToggleBtn">
+        Evidence (<%= length(@saved_results) %>)
+      </label>
+    </div>
+    <div class="drawer-side">
+      <label for="my-drawer" class="drawer-overlay"></label>
+      <%= if length(@saved_results) >= 1 do %>
+        <div class="menu p-4 min-h-full bg-base-200 text-base-content">
+          <%= for {col, row} <- @saved_results do %>
+            <.sql_table
+              columns={split_res(col)}
+              rows={[split_res(row)]}
+              allow_delete={true}
+              id_label={Faker.Name.last_name()}
+              title="Saved Result"
+            />
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <%= if @error do %>
+    <div class="alert alert-danger" role="alert">
+      <%= @error %>
+    </div>
+  <% else %>
+    <%= if length(@columns) > 1 do %>
+      <.sql_table columns={@columns} rows={@result} allow_save={true} title="Results table" />
+    <% end %>
+  <% end %>
+</div>
+
+
+
+<table class="min-w-full divide-y divide-gray-200 border-solid">
+          <th>
+            <td>Lable</td>
+            <td>Value</td>
+          </th>
+          <%= for {_, cnt} <- Enum.with_index(@row) do %>
+            <tr>
+              <td><%= Enum.at(@columns, cnt) %></td>
+              <td><%= IO.inspect(Enum.at(@row, cnt)) %></td>
+            </tr>
+          <% end %>
+        </table>
+
+
+
+          <%= for suspect <- @suspects do %>
+            <input type="radio" id={"suspect_#{suspect.id}"} name="suspects" value={suspect.id} class="hidden peer" required />
+             
+              <label for={"suspect_#{suspect.id}"} class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+              <div class="block">
+              <div class="w-full text-lg font-semibold">
+              <img src={suspect.image_path} alt={suspect.name} title={suspect.name} class="w-40 h-auto" />
+              </div>
+              <div class="w-full">
+              <%= suspect.name %>
+              </div>
+              </div>
+              </label>
+
+           <% end %>
+           <br><br>

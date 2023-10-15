@@ -2,8 +2,7 @@ defmodule Sqlhelper.StaticData do
   alias Sqlhelper.Repo
 
   alias Sqlhelper.DataCheck
-  # alias Sqlhelper.StaticData.Animals
-  # alias Sqlhelper.StaticData.Owners
+
   alias Sqlhelper.StaticData.{
     Author,
     Challenges,
@@ -11,7 +10,8 @@ defmodule Sqlhelper.StaticData do
     Crimes,
     Evidence,
     Witnesses,
-    Statements
+    Statements,
+    Killer
   }
 
   def run do
@@ -25,8 +25,10 @@ defmodule Sqlhelper.StaticData do
 
     insert_data("suspects", data_checks, Suspects.data(), &Suspects.insert/1)
 
-    killer = Repo.get(Sqlhelper.Tables.Suspects, Enum.random(1..10))
+    # For now hard code - Dmitri Ivanov
+    killer = Repo.get(Sqlhelper.Tables.Suspects, 5)
 
+    insert_data("killer", data_checks, Killer.data(killer), &Killer.insert/1)
     insert_data("evidence", data_checks, Evidence.data(killer), &Evidence.insert/1)
     insert_data("witnesses", data_checks, Witnesses.data(), &Witnesses.insert/1)
     insert_data("statements", data_checks, Statements.data(killer), &Statements.insert/1)

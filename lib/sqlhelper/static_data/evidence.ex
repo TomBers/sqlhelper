@@ -6,27 +6,21 @@ defmodule Sqlhelper.StaticData.Evidence do
   def data(killer) do
     suspects = Repo.all(Sqlhelper.Tables.Suspects)
 
-    suspects |> Enum.flat_map(fn suspect -> gen_evidence(suspect, killer) end)
+    other_evidence = suspects |> Enum.flat_map(fn suspect -> gen_evidence(suspect) end)
+
+    Enum.shuffle(other_evidence ++ [add_killer_evidence(killer)])
   end
 
-  defp gen_evidence(suspect, killer) do
-    evidence =
-      1..Enum.random([1, 2, 3])
-      |> Enum.map(fn _ -> evidence_map(@test_crime, suspect.id) end)
-
-    evidence ++ [evidence_map(@test_crime, killer.id, "DNA")]
+  defp gen_evidence(suspect) do
+    1..Enum.random([1, 2, 3])
+    |> Enum.map(fn _ ->
+      type = get_evidence_type()
+      notes = get_evidence_notes(type)
+      evidence_map(@test_crime, suspect.id, type, notes)
+    end)
   end
 
-  defp evidence_map(crime_id, suspect_id, manual_type \\ nil) do
-    type =
-      if is_nil(manual_type) do
-        get_evidence_type()
-      else
-        manual_type
-      end
-
-    notes = get_evidence_notes(type)
-
+  defp evidence_map(crime_id, suspect_id, type, notes) do
     %{
       type: type,
       image_path: "/images/evidence/#{String.downcase(type)}.jpeg",
@@ -37,6 +31,10 @@ defmodule Sqlhelper.StaticData.Evidence do
       crime_id: crime_id,
       suspect_id: suspect_id
     }
+  end
+
+  defp add_killer_evidence(killer) do
+    evidence_map(@test_crime, killer.id, "DNA", "Found at the scene")
   end
 
   defp get_evidence_type do

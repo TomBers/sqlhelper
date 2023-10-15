@@ -20,7 +20,7 @@ defmodule Sqlhelper.StaticData.Suspects do
         dob: ~D[1990-12-12],
         height: 188,
         build: "lean yet muscular build",
-        hair_colour: "silvery",
+        hair_colour: "Silvery",
         gender: "Male",
         ethnicity: "Mixed Asian and Caucasian heritage",
         notes:
@@ -42,7 +42,7 @@ defmodule Sqlhelper.StaticData.Suspects do
       %{
         name: "Sebastian Blackwood",
         dob: ~D[1988-06-21],
-        height: 196,
+        height: 203,
         build: "Solid",
         hair_colour: "Jet black",
         gender: "Male",
@@ -68,7 +68,7 @@ defmodule Sqlhelper.StaticData.Suspects do
         dob: ~D[1986-02-02],
         height: 182,
         build: "Muscular",
-        hair_colour: "Blonde",
+        hair_colour: "Brunet",
         gender: "Male",
         ethnicity: "Slavic",
         notes:
@@ -82,7 +82,7 @@ defmodule Sqlhelper.StaticData.Suspects do
         build: "Petite yet strong",
         hair_colour: "Chestnut",
         gender: "Female",
-        ethnicity: "African-American",
+        ethnicity: "Eastern European",
         notes:
           "Amara Bellamy, a woman of enigmatic beauty and hypnotic charm, navigates through a realm of aristocratic deceit with a serpent's grace. Her petite yet strong build belies a ferocious strength, while her ability to charm serpents is as mesmerizing as it is terrifying. The veil of mystery surrounding Amara thickens as the night of betrayal reveals serpents both real and metaphorical.",
         crime_id: crime_id
