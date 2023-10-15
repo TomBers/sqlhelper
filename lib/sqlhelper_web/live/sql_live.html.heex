@@ -15,11 +15,11 @@
         </h3>
         <p class="py-4">You have the following tables:</p>
         <ul class="list-disc list-inside">
-          <li>crimes</li>
-          <li>evidence</li>
-          <li>witnesses</li>
-          <li>statements</li>
-          <li>suspects</li>
+          <li>crimes (select * from crimes)</li>
+          <li>evidence (select * from evidence)</li>
+          <li>witnesses (select * from witnesses)</li>
+          <li>statements (select * from statements)</li>
+          <li>suspects (select * from suspects)</li>
         </ul>
         <p class="py-4">
           Combine evidence and witness statements to find the guilty person!
@@ -34,6 +34,7 @@
         phx-hook="CtrlEnterSubmit"
         value={@query}
         id="queryTextArea"
+        placeholder="Enter your query here (Ctrl+Enter to execute)"
       />
       <button type="submit" class="btn btn-wide my-4">
         Execute
