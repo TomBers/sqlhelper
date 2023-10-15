@@ -1,5 +1,5 @@
 <div class="flex">
-  <div class="w-3/4 bg-blue-200 p-4">
+  <div class="w-3/4 bg-blue-100 p-4">
     <h1 class="text-3xl font-bold"><%= @challenge.title %></h1>
     <p class="py-6">
       <%= @challenge.text %>
@@ -36,7 +36,7 @@
         id="queryTextArea"
         placeholder="Enter your query here (Ctrl+Enter to execute)"
       />
-      <button type="submit" class="btn btn-wide my-4">
+      <button type="submit" class="btn bg-white btn-wide my-4">
         Execute
       </button>
       (Queries <%= length(@query_history) %>)
@@ -60,14 +60,15 @@
         </label>
         <div class="collapse-content">
           <div class="menu p-4 min-h-full bg-base-200 text-base-content">
-            <%= for {col, row} <- @saved_results do %>
-              <.sql_table
-                columns={split_res(col)}
-                rows={[split_res(row)]}
-                allow_delete={true}
-                id_label={Faker.Person.last_name()}
-                title="Saved Result"
-              />
+            <%= for {{col, row}, cnt} <- Enum.with_index(@saved_results) do %>
+              <div class="block border-solid border-2 border-sky-500 p-5 mb-2">
+                <.view_data
+                  id={"saved_data_#{cnt}"}
+                  row={split_res(row)}
+                  columns={split_res(col)}
+                  btn_title={"Evidence #{cnt + 1}"}
+                />
+              </div>
             <% end %>
           </div>
         </div>

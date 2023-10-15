@@ -3,13 +3,14 @@ defmodule SqlhelperWeb.SqlLive do
   use SqlhelperWeb, :html
 
   import SqlhelperWeb.Table
+  import SqlhelperWeb.ViewData
   alias Sqlhelper.Tables.Killer
 
   @joiner_char "__"
 
   def mount(%{"challenge_id" => id}, _session, socket) do
-    # q = Enum.random(["SELECT * FROM suspects"])
-    q = ""
+    q = Enum.random(["SELECT * FROM suspects"])
+    # q = ""
     challenge = Sqlhelper.Challenges.get_challenge!(id)
     killer = Sqlhelper.Challenges.get_killer!(id)
     # TODO - get the suspects associated with the challenge / crime
@@ -56,7 +57,7 @@ defmodule SqlhelperWeb.SqlLive do
 
   def handle_event("save_result", %{"row" => row, "col" => col}, socket) do
     res = {col, row}
-    saved_results = [res | socket.assigns.saved_results]
+    saved_results = socket.assigns.saved_results ++ [res]
 
     {:noreply, assign(socket, saved_results: saved_results)}
   end

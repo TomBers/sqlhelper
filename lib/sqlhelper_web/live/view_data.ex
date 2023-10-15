@@ -3,10 +3,11 @@ defmodule SqlhelperWeb.ViewData do
 
   attr :columns, :list, default: []
   attr :row, :list, default: []
+  attr :btn_title, :string, default: "View"
 
   def view_data(assigns) do
     ~H"""
-    <button class="btn" onclick={"#{@id}.showModal()"}>View</button>
+    <button class="btn" onclick={"#{@id}.showModal()"}><%= @btn_title %></button>
     <dialog id={"#{@id}"} class="modal">
       <div class="modal-box">
         <form method="dialog">
