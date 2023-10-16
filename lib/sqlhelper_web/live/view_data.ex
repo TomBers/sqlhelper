@@ -3,10 +3,11 @@ defmodule SqlhelperWeb.ViewData do
 
   attr :columns, :list, default: []
   attr :row, :list, default: []
+  attr :btn_title, :string, default: "View"
 
   def view_data(assigns) do
     ~H"""
-    <button class="btn" onclick={"#{@id}.showModal()"}>View</button>
+    <button class="btn" onclick={"#{@id}.showModal()"}><%= @btn_title %></button>
     <dialog id={"#{@id}"} class="modal">
       <div class="modal-box">
         <form method="dialog">
@@ -30,7 +31,7 @@ defmodule SqlhelperWeb.ViewData do
                   <td><%= cnt + 1 %></td>
                   <td><%= Enum.at(@columns, cnt) %></td>
                   <td>
-                    <p><%= IO.inspect(Enum.at(@row, cnt)) %></p>
+                    <p><%= Enum.at(@row, cnt) %></p>
                   </td>
                 </tr>
               <% end %>
