@@ -5,6 +5,7 @@ defmodule SqlhelperWeb.SqlLive do
   import SqlhelperWeb.Table
   import SqlhelperWeb.ViewData
   alias Sqlhelper.Tables.Killer
+  alias Sqlhelper.Tables.Queries
 
   @joiner_char "__"
 
@@ -41,6 +42,10 @@ defmodule SqlhelperWeb.SqlLive do
 
   def handle_event("execute", %{"query" => query}, socket) do
     query_history = [query | socket.assigns.query_history]
+
+    %Queries{}
+    |> Queries.changeset(%{query: query})
+    |> Sqlhelper.Repo.insert()
 
     case Sqlhelper.Repo.query(query) do
       {:ok, %{columns: cols, rows: rows}} ->
