@@ -1,0 +1,16 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Query</th>
+      <th>Timestamp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for query <- @queries do %>
+      <tr>
+        <td><%= query.query %></td>
+        <td><%= query.inserted_at |> to_string |> String.slice(0..15) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

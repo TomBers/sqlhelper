@@ -19,6 +19,7 @@ defmodule SqlhelperWeb.Router do
 
     # get "/", PageController, :home
     live "/", SqlLive
+    get "/queries", QueriesController, :index
   end
 
   # Other scopes may use custom stacks.
