@@ -8,11 +8,14 @@ defmodule SqlhelperWeb.SqlLive do
 
   @joiner_char "__"
 
-  def mount(%{"challenge_id" => id}, _session, socket) do
-    q = Enum.random(["SELECT * FROM suspects"])
-    # q = ""
-    challenge = Sqlhelper.Challenges.get_challenge!(id)
-    killer = Sqlhelper.Challenges.get_killer!(id)
+  def mount(_params, _session, socket) do
+    # q = Enum.random(["SELECT * FROM suspects"])
+    q = ""
+    # TODO - hard coded for the time being
+    challenge_id = 1
+    challenge = Sqlhelper.Challenges.get_challenge!(challenge_id)
+    # TODO - get crime_id from challenge
+    killer = Sqlhelper.Challenges.get_killer!(challenge_id)
     # TODO - get the suspects associated with the challenge / crime
     suspects = Sqlhelper.Challenges.get_suspects!()
 

@@ -17,8 +17,8 @@ defmodule SqlhelperWeb.Router do
   scope "/", SqlhelperWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
-    live "/sql/:challenge_id", SqlLive
+    # get "/", PageController, :home
+    live "/", SqlLive
   end
 
   # Other scopes may use custom stacks.

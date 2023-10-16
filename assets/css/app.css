@@ -7,3 +7,9 @@
 .task-list-task {
     cursor: pointer;
 }
+
+#queryTextArea {
+    height: 100px;
+    font: 1.5em sans-serif;
+    padding: 0.2em;
+}

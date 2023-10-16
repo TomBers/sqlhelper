@@ -31,7 +31,7 @@ defmodule SqlhelperWeb.ViewData do
                   <td><%= cnt + 1 %></td>
                   <td><%= Enum.at(@columns, cnt) %></td>
                   <td>
-                    <p><%= IO.inspect(Enum.at(@row, cnt)) %></p>
+                    <p><%= Enum.at(@row, cnt) %></p>
                   </td>
                 </tr>
               <% end %>
